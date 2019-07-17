@@ -14,4 +14,4 @@ services:
       - ./map:/code/map
       - ./db/:/db/
     ports:
-      - "5000:5000"
+      - "${EXTERNAL_PORT}:5000"
