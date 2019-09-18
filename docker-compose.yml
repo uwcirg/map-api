@@ -9,7 +9,7 @@ services:
     env_file:
       - ./.flaskenv
     environment:
-      - DATABASE_URI=sqlite:////db/map.db
+      - DATABASE_URI=${DATABASE_URI}
     volumes:
       - ./map:/code/map
       - ./db/:/db/
