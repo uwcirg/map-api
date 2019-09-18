@@ -1,4 +1,6 @@
 from flask import Flask
+from io import StringIO
+from os import getenv
 
 from map import auth, api
 from map.extensions import db, jwt, migrate
@@ -15,6 +17,12 @@ def create_app(testing=False, cli=False):
 
     configure_extensions(app, cli)
     register_blueprints(app)
+
+    if getenv("DUMP_CONFIG", None):
+        buf = StringIO()
+        for k, v in app.config.items():
+            buf.write("{}: {}\n".format(str(k), str(v)))
+        app.logger.info(buf.getvalue())
 
     return app
 
