@@ -58,7 +58,8 @@ def revoke_token(token_jti, user):
     if token is not found we raise an exception
     """
     try:
-        token = TokenBlacklist.query.filter_by(jti=token_jti, user_id=user).one()
+        token = TokenBlacklist.query.filter_by(
+            jti=token_jti, user_id=user).one()
         token.revoked = True
         db.session.commit()
     except NoResultFound:

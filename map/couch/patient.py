@@ -104,14 +104,14 @@ def sync_patient(patient_fhir):
             couch_time = db['Patient'].get('meta', {}).get('lastUpdated')
             if (couch_time and not hapi_time) or (couch_time > hapi_time):
                 current_app.logger.debug(
-                    f"found newer data in couch for Patient {patient_fhir['id']}; "
-                    "push to HAPI")
+                    "found newer data in couch for Patient "
+                    f"{patient_fhir['id']}; push to HAPI")
                 patient_fhir = HapiRequest.put_patient(db['Patient'])
 
             elif (hapi_time and not couch_time) or (hapi_time > couch_time):
                 current_app.logger.debug(
-                    f"found newer data in HAPI for Patient {patient_fhir['id']}; "
-                    "push to couch")
+                    "found newer data in HAPI for Patient "
+                    f"{patient_fhir['id']}; push to couch")
                 db['Patient'] = patient_fhir
 
     return patient_fhir
