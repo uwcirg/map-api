@@ -10,10 +10,13 @@ services:
     image: map
     build: .
     command: map run -h 0.0.0.0
+    depends_on:
+      - couch
     env_file:
       - ./.flaskenv
     environment:
       <<: *shared_env
+      COUCHDB_HOST: couch
       DATABASE_URI: ${DATABASE_URI}
     volumes:
       - ./map:/code/map
