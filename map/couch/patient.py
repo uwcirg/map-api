@@ -90,28 +90,30 @@ def sync_patient(patient_fhir):
         # Generate couch user, database and persist patient_fhir
         userdb = generate_user_db(patient_fhir)
         current_app.logger.info(f"New user db generated: {userdb}")
-    else:
-        # Confirm existing db record is in sync
-        if userdb not in couch:
-            raise RuntimeError(f"Pre-existing user db not found {userdb}")
-        current_app.logger.info(f"Pre-existing user db found: {userdb}")
-        db = couch[userdb]
-        if 'Patient' not in db:
-            db['Patient'] = patient_fhir
-        else:
-            # HAPI keeps up last_updated, if newer than couch version, replace
-            hapi_time = patient_fhir.get('meta', {}).get('lastUpdated')
-            couch_time = db['Patient'].get('meta', {}).get('lastUpdated')
-            if (couch_time and not hapi_time) or (couch_time > hapi_time):
-                current_app.logger.debug(
-                    "found newer data in couch for Patient "
-                    f"{patient_fhir['id']}; push to HAPI")
-                patient_fhir = HapiRequest.put_patient(db['Patient'])
+        return patient_fhir
 
-            elif (hapi_time and not couch_time) or (hapi_time > couch_time):
-                current_app.logger.debug(
-                    "found newer data in HAPI for Patient "
-                    f"{patient_fhir['id']}; push to couch")
-                db['Patient'] = patient_fhir
+    # Confirm existing db record is in sync
+    if userdb not in couch:
+        raise RuntimeError(f"Pre-existing user db not found {userdb}")
+    current_app.logger.info(f"Pre-existing user db found: {userdb}")
+    db = couch[userdb]
+    if 'Patient' not in db:
+        db['Patient'] = patient_fhir
+        return patient_fhir
+
+    # HAPI keeps up last_updated, if newer than couch version, replace
+    hapi_time = patient_fhir.get('meta', {}).get('lastUpdated')
+    couch_time = db['Patient'].get('meta', {}).get('lastUpdated')
+    if (couch_time and not hapi_time) or (couch_time > hapi_time):
+        current_app.logger.debug(
+            "found newer data in couch for Patient "
+            f"{patient_fhir['id']}; push to HAPI")
+        patient_fhir = HapiRequest.put_patient(db['Patient'])
+
+    elif (hapi_time and not couch_time) or (hapi_time > couch_time):
+        current_app.logger.debug(
+            "found newer data in HAPI for Patient "
+            f"{patient_fhir['id']}; push to couch")
+        db['Patient'] = patient_fhir
 
     return patient_fhir
