@@ -1,7 +1,7 @@
 from flask import request
 from flask_restful import Resource
 import requests
-from werkzeug.exceptions import BadRequest
+from werkzeug.exceptions import BadRequest, NotFound
 
 from .fhir_resource import ResourceType
 from map.couch import sync_patient
@@ -23,11 +23,11 @@ class Sync(Resource):
             params=params)
 
         # Search returns bundle - if one was found, extract and sync
-        if hapi_pat.status_code == 200:
-            bundle = hapi_pat.json()
-            assert bundle.get('resourceType') == 'Bundle'
-            if bundle.get('total') == 1:
-                patient_fhir = bundle['entry'][0]['resource']
-                return sync_patient(patient_fhir)
+        hapi_pat.raise_for_status()
+        bundle = hapi_pat.json()
+        assert bundle.get('resourceType') == 'Bundle'
+        if bundle.get('total') == 1:
+            patient_fhir = bundle['entry'][0]['resource']
+            return sync_patient(patient_fhir)
         else:
-            raise BadRequest(hapi_pat.json())
+            raise NotFound()
