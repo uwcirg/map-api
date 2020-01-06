@@ -21,7 +21,5 @@ class HapiRequest(metaclass=HapiMeta):
     def put_patient(cls, patient_fhir):
         url = cls.build_request(f'Patient/{patient_fhir["id"]}')
         result = requests.put(url, json=patient_fhir)
-        if result.status_code != 200:
-            raise RuntimeError(
-                f"unable to update HAPI Patient {patient_fhir['id']}")
+        result.raise_for_status()
         return result.json()
