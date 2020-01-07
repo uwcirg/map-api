@@ -25,16 +25,27 @@ def dbname_from_id(patient_fhir):
                 return i[VALUE]
 
 
+def dbname_from_username(username):
+    """reimplementation of couch hashing for user's db name
+
+    With ``couch_peruser`` configured, a db is automatically generated
+    with every add_user() call.  No API support to obtain the name of the
+    generated db, but documented to be hashed as follows, including a
+    commone prefix
+
+    :param username: couch username used to generate db name
+    :return: name of user's personal couchdb
+
+    """
+    suffix = hexlify(username.encode('utf-8'))
+    return 'userdb-{}'.format(suffix.decode('utf-8'))
+
+
 def generate_user_db(patient_fhir):
     """Add new couch user and db, store identifier and push upstream"""
     # Start with a fresh uuid as the user's 'name'
     username = uuid4().hex
-
-    # With couch_peruser configured, a db is automatically generated
-    # with every add_user call.  The name includes the prefix and
-    # a hex encoded version of the user's "name".
-    suffix = hexlify(username.encode('utf-8'))
-    dbname = 'userdb-{}'.format(suffix.decode('utf-8'))
+    dbname = dbname_from_username(username)
 
     # Add the dbname as an identifier to the patient FHIR
     couch_id = {SYSTEM: COUCHDB_SYSTEM, VALUE: dbname}
