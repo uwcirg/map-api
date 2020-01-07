@@ -8,6 +8,7 @@ from binascii import hexlify
 from uuid import uuid4
 
 from ..fhir.hapi import HapiRequest
+from ..utils import dt_or_none
 from .server import couch
 
 COUCHDB_SYSTEM = 'couchdb-name11'
@@ -101,9 +102,9 @@ def sync_patient(patient_fhir):
         db['Patient'] = patient_fhir
         return patient_fhir
 
-    # HAPI keeps up last_updated, if newer than couch version, replace
-    hapi_time = patient_fhir.get('meta', {}).get('lastUpdated')
-    couch_time = db['Patient'].get('meta', {}).get('lastUpdated')
+    # HAPI maintains last_updated (ISO 8601 format); replace if newer
+    hapi_time = dt_or_none(patient_fhir.get('meta', {}).get('lastUpdated'))
+    couch_time = dt_or_none(db['Patient'].get('meta', {}).get('lastUpdated'))
     if (couch_time and not hapi_time) or (couch_time > hapi_time):
         current_app.logger.debug(
             "found newer data in couch for Patient "
@@ -114,6 +115,9 @@ def sync_patient(patient_fhir):
         current_app.logger.debug(
             "found newer data in HAPI for Patient "
             f"{patient_fhir['id']}; push to couch")
+        # Set couch id, revision to match current to avoid save conflict
+        patient_fhir['_id'] = 'Patient'
+        patient_fhir['_rev'] = db['Patient'].rev
         db['Patient'] = patient_fhir
 
     return patient_fhir
