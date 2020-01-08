@@ -1,3 +1,4 @@
+import requests
 from flask import current_app
 
 
@@ -15,3 +16,10 @@ class HapiRequest(metaclass=HapiMeta):
     @classmethod
     def build_request(cls, path):
         return cls.base_url + path
+
+    @classmethod
+    def put_patient(cls, patient_fhir):
+        url = cls.build_request(f'Patient/{patient_fhir["id"]}')
+        result = requests.put(url, json=patient_fhir)
+        result.raise_for_status()
+        return result.json()

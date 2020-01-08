@@ -47,10 +47,12 @@ class FhirSearch(Resource):
 
 class FhirResource(Resource):
     """Single FHIR resource
+
+    Pass through request to HAPI, return the resulting JSON
     """
-    def get(self, resource_type, patient_id):
+    def get(self, resource_type, resource_id):
         ResourceType.validate(resource_type)
         hapi_pat = requests.get(HapiRequest.build_request(
-            f"{resource_type}/{patient_id}"),
+            f"{resource_type}/{resource_id}"),
             params={'_pretty': 'true', '_format': 'json'})
         return hapi_pat.json()

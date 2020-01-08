@@ -1,6 +1,7 @@
 import factory
 from pytest_factoryboy import register
 
+from map.config import API_PREFIX
 from map.models import User
 
 
@@ -17,14 +18,14 @@ class UserFactory(factory.Factory):
 
 def test_get_user(client, db, user, admin_headers):
     # test 404
-    rep = client.get("/api/v1/users/100000", headers=admin_headers)
+    rep = client.get(f"{API_PREFIX}/users/100000", headers=admin_headers)
     assert rep.status_code == 404
 
     db.session.add(user)
     db.session.commit()
 
     # test get_user
-    rep = client.get('/api/v1/users/%d' % user.id, headers=admin_headers)
+    rep = client.get(f'{API_PREFIX}/users/{user.id}', headers=admin_headers)
     assert rep.status_code == 200
 
     data = rep.get_json()['user']
@@ -35,7 +36,7 @@ def test_get_user(client, db, user, admin_headers):
 
 def test_put_user(client, db, user, admin_headers):
     # test 404
-    rep = client.put("/api/v1/users/100000", headers=admin_headers)
+    rep = client.put(f"{API_PREFIX}/users/100000", headers=admin_headers)
     assert rep.status_code == 404
 
     db.session.add(user)
@@ -45,7 +46,7 @@ def test_put_user(client, db, user, admin_headers):
 
     # test update user
     rep = client.put(
-        '/api/v1/users/%d' % user.id,
+        f'{API_PREFIX}/users/{user.id}',
         json=data,
         headers=admin_headers
     )
@@ -59,7 +60,7 @@ def test_put_user(client, db, user, admin_headers):
 
 def test_delete_user(client, db, user, admin_headers):
     # test 404
-    rep = client.delete("/api/v1/users/100000", headers=admin_headers)
+    rep = client.delete(f"{API_PREFIX}/users/100000", headers=admin_headers)
     assert rep.status_code == 404
 
     db.session.add(user)
@@ -68,7 +69,7 @@ def test_delete_user(client, db, user, admin_headers):
     # test get_user
     user_id = user.id
     rep = client.delete(
-        '/api/v1/users/%d' % user_id,
+        f'{API_PREFIX}/users/{user_id}',
         headers=admin_headers
     )
     assert rep.status_code == 200
@@ -81,7 +82,7 @@ def test_create_user(client, db, admin_headers):
         'username': 'created'
     }
     rep = client.post(
-        '/api/v1/users',
+        f'{API_PREFIX}/users',
         json=data,
         headers=admin_headers
     )
@@ -91,7 +92,7 @@ def test_create_user(client, db, admin_headers):
     data['email'] = 'create@mail.com'
 
     rep = client.post(
-        '/api/v1/users',
+        f'{API_PREFIX}/users',
         json=data,
         headers=admin_headers
     )
@@ -110,7 +111,7 @@ def test_get_all_user(client, db, user_factory, admin_headers):
     db.session.add_all(users)
     db.session.commit()
 
-    rep = client.get('/api/v1/users', headers=admin_headers)
+    rep = client.get(f'{API_PREFIX}/users', headers=admin_headers)
     assert rep.status_code == 200
 
     results = rep.get_json()

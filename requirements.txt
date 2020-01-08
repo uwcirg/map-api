@@ -1,3 +1,4 @@
+CouchDB
 flask
 flask-restful
 flask-migrate
@@ -5,6 +6,7 @@ flask-sqlalchemy
 flask-marshmallow
 flask-jwt-extended
 marshmallow-sqlalchemy
+python-dateutil
 python-dotenv
 passlib
 requests

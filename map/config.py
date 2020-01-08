@@ -4,6 +4,10 @@ Use env var to override
 """
 import os
 
+# naming the supported FHIR version, r4
+# see https://www.hl7.org/fhir/history.html
+API_PREFIX = '/api/r4'
+
 ENV = os.getenv("FLASK_ENV")
 HAPI_URL = os.getenv("HAPI_URL")
 SERVER_NAME = os.getenv("SERVER_NAME")

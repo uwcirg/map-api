@@ -1,15 +1,23 @@
 # WARNING: this file is not suitable for production, please use with caution
 version: '3.4'
+x-env-block:
+  environment: &shared_env
+    COUCHDB_USER: ${COUCHDB_USER:-couchdb_user}
+    COUCHDB_PASSWORD: ${COUCHDB_PASSWORD:-couchdb_password}
 
 services:
   web:
     image: map
     build: .
     command: map run -h 0.0.0.0
+    depends_on:
+      - couch
     env_file:
       - ./.flaskenv
     environment:
-      - DATABASE_URI=${DATABASE_URI}
+      <<: *shared_env
+      COUCHDB_HOST: couch
+      DATABASE_URI: ${DATABASE_URI}
     volumes:
       - ./map:/code/map
       - ./db/:/db/
@@ -18,12 +26,12 @@ services:
   couch:
     image: couchdb:2.3.1
     environment:
-      COUCHDB_USER: couchdb_user
-      # read from .env
+      <<: *shared_env
       COUCHDB_SECRET: ${COUCHDB_SECRET:-couchdb_secret}
     ports:
       - "5984:5984"
     volumes:
+      - ./couch_defaults.ini:/opt/couchdb/etc/local.d/couch_defaults.ini:ro
       - source: couchdb-data
         target: /opt/couchdb/data
         type: volume
