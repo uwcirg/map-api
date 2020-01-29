@@ -1,8 +1,7 @@
-from .patient import sync_patient
+from .patient import CouchPatientDB
 from .server import couch
-
 
 __all__ = [
     'couch',
-    'sync_patient'
+    'CouchPatientDB'
 ]

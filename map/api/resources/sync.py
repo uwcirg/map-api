@@ -3,9 +3,8 @@ from flask_restful import Resource
 import requests
 from werkzeug.exceptions import BadRequest, NotFound
 
-from .fhir_resource import ResourceType
-from map.couch import sync_patient
-from map.fhir import HapiRequest
+from map.couch import CouchPatientDB
+from map.fhir import HapiRequest, ResourceType
 
 
 class Sync(Resource):
@@ -28,6 +27,6 @@ class Sync(Resource):
         assert bundle.get('resourceType') == 'Bundle'
         if bundle.get('total') == 1:
             patient_fhir = bundle['entry'][0]['resource']
-            return sync_patient(patient_fhir)
+            return CouchPatientDB(patient_fhir).patient_fhir
         else:
             raise NotFound()
