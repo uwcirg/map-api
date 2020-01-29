@@ -13,6 +13,8 @@ def create_app(testing=False, cli=False):
     app.config.from_object('map.config')
 
     if testing is True:
+        app.config['SECRET_KEY'] = 'nonsense-testing-key'
+        app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////tmp/test-map.db"
         app.config['TESTING'] = True
 
     configure_extensions(app, cli)
