@@ -8,22 +8,28 @@ from binascii import hexlify
 from uuid import uuid4
 
 from .server import couch
-from ..fhir import Bundle, CarePlan, HapiRequest
+from ..fhir import (
+    SYSTEM,
+    VALUE,
+    Bundle,
+    CarePlan,
+    HapiRequest,
+    identifier_with_system,
+    update_identifier,
+)
 from ..utils import dt_or_none
 
-COUCHDB_SYSTEM = 'couchdb-name'
-IDENTIFIER = 'identifier'
-SYSTEM = 'system'
-VALUE = 'value'
+COUCHDB_IDENTIFIER_SYSTEM = 'couchdb-user:db'
 ALLOW_USERDB_REPLACEMENT = True
 
 
 def dbname_from_id(patient_fhir):
-    """Return couch dbname from Patient's identifiers, if present"""
-    if IDENTIFIER in patient_fhir:
-        for i in patient_fhir[IDENTIFIER]:
-            if i[SYSTEM] == COUCHDB_SYSTEM:
-                return i[VALUE]
+    """Return couch user and dbname from Patient's identifiers, if present"""
+    identifier = identifier_with_system(
+        patient_fhir, COUCHDB_IDENTIFIER_SYSTEM)
+    if identifier:
+        return identifier[VALUE].split(':')
+    return None, None
 
 
 def dbname_from_username(username):
@@ -47,59 +53,60 @@ class CouchPatientDB(object):
 
     def __init__(self, patient_fhir):
         """Initialize couch user db for given patient"""
-        self.userdb_name = None
+        self.username, self.userdbname = None, None
         self.patient_fhir = patient_fhir
-        self.sync_patient()
-        self.sync_related_resources()
+
+    def couch_id(self):
+        """Return FHIR compliant Identifier for Patient's couchdb details"""
+        if not (self.username and self.userdbname):
+            raise ValueError("can't generate Identifier w/o name and db")
+        return {
+            SYSTEM: COUCHDB_IDENTIFIER_SYSTEM,
+            VALUE: f"{self.username}:{self.userdbname}"}
 
     def generate_user_db(self):
         """Add new couch user and db, store identifier and push upstream"""
         # Start with a fresh uuid as the user's 'name'
-        username = uuid4().hex
-        self.userdb_name = dbname_from_username(username)
+        self.username = uuid4().hex
+        self.userdbname = dbname_from_username(self.username)
 
-        # Add the dbname as an identifier to the patient FHIR
-        couch_id = {SYSTEM: COUCHDB_SYSTEM, VALUE: self.userdb_name}
-        if IDENTIFIER not in self.patient_fhir:
-            self.patient_fhir[IDENTIFIER] = [couch_id]
-        else:
-            # Overwrite if necessary:
-            id_persisted = False
-            for i in self.patient_fhir[IDENTIFIER]:
-                if i[SYSTEM] == COUCHDB_SYSTEM:
-                    i[VALUE] = self.userdb_name
-                    id_persisted = True
-            if not id_persisted:
-                self.patient_fhir[IDENTIFIER].append(couch_id)
-
-        # Push identifier upstream
-        HapiRequest.put_resource(self.patient_fhir)
+        # Add the new couch_db identifier to the patient FHIR
+        self.patient_fhir = update_identifier(
+            self.patient_fhir, self.couch_id())
 
         # Add user to couch, which also generates db
-        couch.add_user(name=username, password='auto', roles=['patient'])
+        couch.add_user(name=self.username, password='auto', roles=['patient'])
 
-        # Couch is configured (see ``couch_defaults.ini``) to generate a
-        # per-user database on user creation.  Apparent race condition requires
-        # the try try model below.
+        # Couch is configured (see ``zz-couch_defaults.ini``) to generate a
+        # per-user database on user creation.  Apparent API race condition
+        # requires the try, try model below.
         db = None
         try:
             current_app.logger.debug("attempt to access new db")
-            db = couch[self.userdb_name]
+            db = couch[self.userdbname]
         except ResourceNotFound:
             current_app.logger.debug("404 on new user db")
 
         if not db:
             try:
                 current_app.logger.debug("attempt to directly create new db")
-                couch.create(self.userdb_name)
+                couch.create(self.userdbname)
                 current_app.logger.debug("success")
             except ServerError as e:
                 assert 'conflict' in str(e)
             finally:
-                db = couch[self.userdb_name]
+                db = couch[self.userdbname]
 
+        # Push identifier upstream
+        HapiRequest.put_resource(self.patient_fhir)
         # Now persist the given/modified patient document
         self.sync_document(self.patient_fhir)
+
+    def sync(self):
+        """API to invoke complete sync of patient and related resources"""
+        self.sync_patient()
+        self.sync_related_resources()
+        return self.patient_fhir
 
     def sync_document(self, document):
         """sync contents of any given document w/ couch user db
@@ -113,7 +120,7 @@ class CouchPatientDB(object):
 
         """
         key = f"{document['resourceType']}/{document['id']}"
-        db = couch[self.userdb_name]
+        db = couch[self.userdbname]
         if key not in db:
             db[key] = document
             return document
@@ -149,27 +156,27 @@ class CouchPatientDB(object):
         Returns potentially modified patient_fhir, if newer version is found
 
         """
-        self.userdb_name = dbname_from_id(self.patient_fhir)
-        if not self.userdb_name:
+        self.username, self.userdbname = dbname_from_id(self.patient_fhir)
+        if not self.userdbname:
             # Generate couch user, database and persist patient_fhir
             self.generate_user_db()
             current_app.logger.info(
-                f"New user db generated: {self.userdb_name}")
+                f"New user db generated: {self.userdbname}")
             return
 
         # Confirm existing db record is in sync
-        if self.userdb_name not in couch:
+        if self.userdbname not in couch:
             # Happens when changing servers - trigger replacement via new db
             if not ALLOW_USERDB_REPLACEMENT:
                 raise RuntimeError(
-                    f"Pre-existing user db not found {self.userdb_name}")
+                    f"Pre-existing user db not found {self.userdbname}")
             self.generate_user_db()
             current_app.logger.info(
-                f"Replacing user db, generated: {self.userdb_name}")
+                f"Replacing user db, generated: {self.userdbname}")
             return
 
         current_app.logger.info(
-            f"Pre-existing user db found: {self.userdb_name}")
+            f"Pre-existing user db found: {self.userdbname}")
         self.patient_fhir = self.sync_document(self.patient_fhir)
 
     def sync_related_resources(self):

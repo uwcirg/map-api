@@ -20,6 +20,8 @@ class HapiRequest(metaclass=HapiMeta):
     @classmethod
     def find_bundle(cls, resource_type, search_dict):
         """Search for bundled results from given params and return"""
+        url = HapiRequest.build_request(resource_type)
+        current_app.logger.debug(f"HAPI query: {url} + {search_dict}")
         hapi_res = requests.get(HapiRequest.build_request(
             resource_type),
             params=search_dict)
