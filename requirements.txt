@@ -1,10 +1,12 @@
 CouchDB
 flask
+flask-cors
 flask-restful
 flask-migrate
 flask-sqlalchemy
 flask-marshmallow
 flask-jwt-extended
+jmespath
 marshmallow-sqlalchemy
 python-dateutil
 python-dotenv

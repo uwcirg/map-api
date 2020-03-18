@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from io import StringIO
 from os import getenv
 
@@ -13,6 +14,8 @@ def create_app(testing=False, cli=False):
     app.config.from_object('map.config')
 
     if testing is True:
+        app.config['SECRET_KEY'] = 'nonsense-testing-key'
+        app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////tmp/test-map.db"
         app.config['TESTING'] = True
 
     configure_extensions(app, cli)
@@ -23,6 +26,11 @@ def create_app(testing=False, cli=False):
         for k, v in app.config.items():
             buf.write("{}: {}\n".format(str(k), str(v)))
         app.logger.info(buf.getvalue())
+
+    # Enable CORS from localhost React demo
+    CORS(app, origins=[
+        'http://lo.lo:3000', 'http://127.0.0.1:3000',
+        'http://localhost:3000'])
 
     return app
 

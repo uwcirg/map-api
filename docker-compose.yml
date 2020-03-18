@@ -31,7 +31,7 @@ services:
     ports:
       - "5984:5984"
     volumes:
-      - ./zz-couch_defaults.ini:/opt/couchdb/etc/local.d/zz-couch_defaults.ini:ro
+      - ./zz-couch_defaults.ini:/opt/couchdb/etc/local.d/zz-couch_defaults.ini
       - source: couchdb-data
         target: /opt/couchdb/data
         type: volume
