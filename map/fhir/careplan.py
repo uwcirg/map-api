@@ -1,4 +1,4 @@
-from jsonpath_ng import parse
+from jmespath import search
 from .bundle import Bundle
 from .hapi import HapiRequest
 from .resource_type import ResourceType
@@ -37,9 +37,9 @@ class CarePlan(object):
     @classmethod
     def questionnaire_ids(cls, document):
         """returns all Questionnaire id refs from CarePlan"""
-        expr = parse("activity[*].detail.instantiatesCanonical")
-        for item in expr.find(document):
-            for ref in item.value:
+        jsonpath = "activity[*].detail.instantiatesCanonical"
+        for reflist in search(jsonpath, document):
+            for ref in reflist:
                 if not ref.startswith('Questionnaire/'):
                     continue
                 yield ref[len('Questionnaire/'):]
