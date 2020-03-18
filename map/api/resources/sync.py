@@ -27,6 +27,7 @@ class Sync(Resource):
         assert bundle.get('resourceType') == 'Bundle'
         if bundle.get('total') == 1:
             patient_fhir = bundle['entry'][0]['resource']
-            return CouchPatientDB(patient_fhir).patient_fhir
+            patient = CouchPatientDB(patient_fhir)
+            return patient.sync()
         else:
             raise NotFound()
