@@ -1,6 +1,5 @@
 from flask import request
 from flask_restful import Resource
-import requests
 from werkzeug.exceptions import BadRequest, NotFound
 
 from map.couch import CouchPatientDB
@@ -15,11 +14,7 @@ class Sync(Resource):
         ResourceType.validate(resource_type)
         if resource_type != 'Patient':
             raise BadRequest("Only syncing Patient resources at this time")
-        params = {'_pretty': 'true', '_format': 'json'}
-        params.update(request.args)
-        hapi_pat = requests.get(HapiRequest.build_request(
-            resource_type),
-            params=params)
+        hapi_pat = HapiRequest.find_bundle(resource_type, request.args)
 
         # Search returns bundle - if one was found, extract and sync
         hapi_pat.raise_for_status()
