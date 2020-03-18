@@ -136,7 +136,7 @@ class CouchPatientDB(object):
 
         elif (hapi_time and not couch_time) or (hapi_time > couch_time):
             current_app.logger.debug(
-                f"found newer data in HAPI for {key}; push to couch")
+                "found newer data in HAPI for %s; push to couch", key)
             # Set couch id, revision to match current to avoid save conflict
             document['_id'] = key
             document['_rev'] = db[key].rev
@@ -214,4 +214,3 @@ class CouchPatientDB(object):
                 "QuestionnaireResponse", {'based-on': f'CarePlan/{cp_id}'})
             for qr in Bundle(qrs).resources():
                 self.sync_document(qr)
-
