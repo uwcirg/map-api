@@ -27,10 +27,12 @@ def create_app(testing=False, cli=False):
             buf.write("{}: {}\n".format(str(k), str(v)))
         app.logger.info(buf.getvalue())
 
-    # Enable CORS from localhost React demo
+    # Enable CORS from localhost dev versions and prod hosts
     CORS(app, origins=[
-        'http://lo.lo:3000', 'http://127.0.0.1:3000',
-        'http://localhost:3000'])
+        'http://127.0.0.1:8888',
+        'http://lo.lo:8888',
+        'http://localhost:8888',
+        'https://stayhome.cirg.washington.edu'])
 
     return app
 
