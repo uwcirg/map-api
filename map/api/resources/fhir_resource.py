@@ -14,9 +14,7 @@ class FhirSearch(Resource):
         except ValueError as e:
             raise BadRequest(str(e))
 
-        params = {'_pretty': 'true', '_format': 'json'}
-        params.update(request.args)
-        return HapiRequest.find_bundle(resource_type, params)
+        return HapiRequest.find_bundle(resource_type, request.args)
 
 
 class FhirResource(Resource):

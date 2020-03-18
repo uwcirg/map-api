@@ -1,6 +1,8 @@
 import requests
 from flask import current_app
 
+ACCEPT_JSON = {'Accept': 'application/json'}
+
 
 class HapiMeta(type):
     """Meta class used for delayed init - need configured app"""
@@ -23,8 +25,7 @@ class HapiRequest(metaclass=HapiMeta):
         url = HapiRequest.build_request(resource_type)
         current_app.logger.debug(f"HAPI query: {url} + {search_dict}")
         hapi_res = requests.get(HapiRequest.build_request(
-            resource_type),
-            params=search_dict)
+            resource_type), headers=ACCEPT_JSON, params=search_dict)
         hapi_res.raise_for_status()
         bundle = hapi_res.json()
         assert bundle.get('resourceType') == 'Bundle'
@@ -53,8 +54,7 @@ class HapiRequest(metaclass=HapiMeta):
     def find_by_id(cls, resource_type, resource_id):
         """Search for single resource match, return if found"""
         hapi_res = requests.get(HapiRequest.build_request(
-            f"{resource_type}/{resource_id}"),
-            params={'_pretty': 'true', '_format': 'json'})
+            f"{resource_type}/{resource_id}"), headers=ACCEPT_JSON)
         hapi_res.raise_for_status()
         return hapi_res.json()
 
@@ -62,6 +62,6 @@ class HapiRequest(metaclass=HapiMeta):
     def put_resource(cls, resource):
         url = cls.build_request(
             f'{resource["resourceType"]}/{resource["id"]}')
-        result = requests.put(url, json=resource)
+        result = requests.put(url, json=resource, headers=ACCEPT_JSON)
         result.raise_for_status()
         return result.json()
