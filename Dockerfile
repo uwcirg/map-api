@@ -16,4 +16,6 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 RUN pip install -e .
 
+CMD flask run --host 0.0.0.0
+
 EXPOSE 5000
