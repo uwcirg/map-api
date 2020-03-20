@@ -32,13 +32,13 @@ class FhirSearch(Resource):
         try:
             ResourceType.validate(resource_type)
         except ValueError as e:
-            raise BadRequest(str())
+            raise BadRequest(str(e))
 
         bearer_token = request.headers['Authorization'].split()[-1]
         try:
             payload = validate_jwt(bearer_token)
         except (ExpiredSignatureError, JWTClaimsError) as e:
-            raise BadRequest(str())
+            raise BadRequest(str(e))
         else:
             current_app.logger.debug('JWT payload: %s', payload)
 
@@ -60,7 +60,7 @@ class FhirResource(Resource):
         try:
             payload = validate_jwt(bearer_token)
         except (ExpiredSignatureError, JWTClaimsError) as e:
-            raise BadRequest(str())
+            raise BadRequest(str(e))
         else:
             current_app.logger.debug('JWT payload: %s', payload)
 
