@@ -1,0 +1,22 @@
+# HAPI FHIR group of services
+# extends docker-compose.yaml
+---
+version: "3.4"
+services:
+  hapi:
+    image:
+      "${DOCKER_REPOSITORY-docker.pkg.github.com/uwcirg/hapi-fhir-oauth2-starter/}${DOCKER_IMAGE_NAME:-hapi-fhir-jpa}:${DOCKER_IMAGE_TAG:-latest}"
+    depends_on:
+      - hapi-db
+  hapi-db:
+    image: postgres:${POSTGRES_VERSION:-12}
+    environment:
+      POSTGRES_DB: hapifhir
+      POSTGRES_USER: hapifhir
+      POSTGRES_PASSWORD: hapifhir
+    volumes:
+      - source: postgres-data
+        target: /var/lib/postgresql/data
+        type: volume
+volumes:
+    postgres-data: {}
