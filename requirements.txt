@@ -10,6 +10,7 @@ jmespath
 marshmallow-sqlalchemy
 python-dateutil
 python-dotenv
+python-jose[cryptography]
 passlib
 requests
 tox

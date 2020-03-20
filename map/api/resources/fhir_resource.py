@@ -1,8 +1,28 @@
-from flask import request
+import json
+
+from flask import current_app, request
 from flask_restful import Resource
+from jose import jwt
+from jose.exceptions import ExpiredSignatureError, JWTClaimsError
 from werkzeug.exceptions import BadRequest
 
 from map.fhir import HapiRequest, ResourceType
+
+
+
+def validate_jwt(bearer_token):
+    """Validate bearer token signature against Authorization server public key
+    """
+    # todo: decode JSON string in config
+    json_web_keys = json.loads(current_app.config['AUTHZ_JWKS_JSON'])
+
+    json_payload = jwt.decode(
+        token=bearer_token,
+        key=json_web_keys,
+        # todo: fix JWTClaimsError
+        options={'verify_aud': False},
+    )
+    return json_payload
 
 
 class FhirSearch(Resource):
@@ -12,7 +32,15 @@ class FhirSearch(Resource):
         try:
             ResourceType.validate(resource_type)
         except ValueError as e:
-            raise BadRequest(str(e))
+            raise BadRequest(str())
+
+        bearer_token = request.headers['Authorization'].split()[-1]
+        try:
+            payload = validate_jwt(bearer_token)
+        except (ExpiredSignatureError, JWTClaimsError) as e:
+            raise BadRequest(str())
+        else:
+            current_app.logger.debug('JWT payload: %s', payload)
 
         return HapiRequest.find_bundle(resource_type, request.args)
 
@@ -27,5 +55,13 @@ class FhirResource(Resource):
             ResourceType.validate(resource_type)
         except ValueError as e:
             raise BadRequest(str(e))
+
+        bearer_token = request.headers['Authorization'].split()[-1]
+        try:
+            payload = validate_jwt(bearer_token)
+        except (ExpiredSignatureError, JWTClaimsError) as e:
+            raise BadRequest(str())
+        else:
+            current_app.logger.debug('JWT payload: %s', payload)
 
         return HapiRequest.find_by_id(resource_type, resource_id)
