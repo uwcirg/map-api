@@ -59,6 +59,13 @@ class HapiRequest(metaclass=HapiMeta):
         return hapi_res.json()
 
     @classmethod
+    def post_resource(cls, resource):
+        url = cls.build_request(f'{resource["resourceType"]}')
+        result = requests.post(url, json=resource, headers=ACCEPT_JSON)
+        result.raise_for_status()
+        return result.json()
+
+    @classmethod
     def put_resource(cls, resource):
         url = cls.build_request(
             f'{resource["resourceType"]}/{resource["id"]}')
