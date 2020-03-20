@@ -8,13 +8,15 @@
 # note that celery will require a running broker and result backend
 FROM python:3.7
 
+ENV FLASK_APP=map.app:create_app \
+    FLASK_ENV=development
+
 RUN mkdir /code
 WORKDIR /code
 
 COPY . /code/
-RUN pip install --upgrade pip
+
 RUN pip install -r requirements.txt
-RUN pip install -e .
 
 CMD flask run --host 0.0.0.0
 

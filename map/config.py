@@ -10,6 +10,7 @@ API_PREFIX = '/api/r4'
 
 ENV = os.getenv("FLASK_ENV")
 HAPI_URL = os.getenv("HAPI_URL")
+AUTHZ_JWKS_JSON = os.getenv("AUTHZ_JWKS_JSON")
 SERVER_NAME = os.getenv("SERVER_NAME")
 DEBUG = ENV == "development"
 SECRET_KEY = os.getenv("SECRET_KEY")
