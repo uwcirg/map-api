@@ -17,6 +17,8 @@ api = Api(blueprint)
 
 api.add_resource(FhirResource, '/<string:resource_type>/<int:resource_id>')
 api.add_resource(FhirSearch, '/<string:resource_type>')
-api.add_resource(Sync, '/sync/<string:resource_type>')
-api.add_resource(UserResource, '/users/<int:user_id>')
-api.add_resource(UserList, '/users')
+
+# Removing following views until adequately secured
+#api.add_resource(Sync, '/sync/<string:resource_type>')
+#api.add_resource(UserResource, '/users/<int:user_id>')
+#api.add_resource(UserList, '/users')
