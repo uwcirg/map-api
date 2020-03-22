@@ -152,13 +152,9 @@ class AuthorizedUser(object):
             for item in bundle.resources():
                 ar = authz_check_resource(authz_user=self, resource=item)
                 getattr(ar, verb)()
-                current_app.logger.debug(
-                    f'{item["resourceType"]} passed authz check')
         else:
             ar = authz_check_resource(authz_user=self, resource=fhir)
             getattr(ar, verb)()
-            current_app.logger.debug(
-                f'{fhir["resourceType"]} passed authz check')
 
     def patient_id(self):
         """Return patient identifier, if available
