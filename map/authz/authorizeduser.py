@@ -23,14 +23,14 @@ def validate_jwt(bearer_token):
     return json_payload
 
 
-def email_from_jwt(bearer_token):
+def jwt_payload(bearer_token):
     try:
         payload = validate_jwt(bearer_token)
     except (ExpiredSignatureError, JWTClaimsError) as e:
         raise Unauthorized(str(e))
 
     # current_app.logger.debug('JWT payload: %s', payload)
-    return payload['email']
+    return payload
 
 
 class AuthzCheckResource(object):
@@ -71,19 +71,34 @@ class AuthzCheckPatient(AuthzCheckResource):
     def __init__(self, authz_user, fhir_resource):
         super().__init__(authz_user, fhir_resource)
 
-    owned = True
+    def _kc_ident_in_resource(self):
+        """Keycloak Identifier found in FHIR Resource
+
+        If the authorized user's JWT includes a keycloak system and value
+        matching an identifier within the patient resource, return True
+        """
+        kc_sys_ids = [
+            ident for ident in self.resource.get('identifier', []) if
+            ident['system'] == self.user.kc_identifier_system]
+        if not kc_sys_ids:
+            return False
+        if len(kc_sys_ids) != 1:
+            raise ValueError(
+                "unexpected multiple KC identifiers on Patient "
+                f"{self.resource['id']}")
+        return kc_sys_ids[0]['value'] == self.user.kc_identifier_value
 
     def read(self):
         """Only owning patient may read"""
-        if self.owned:
-            return True
+        if not self._kc_ident_in_resource():
+            raise Unauthorized("authorized identifier not found")
+        return True
 
     def write(self):
         """Initial writes allowed, and updates if same patient"""
-        if not self.user.patient_id():
-            return True
-        if not self.owned:
-            raise Unauthorized("Write Patient failed; mismatched owner")
+        if not self._kc_ident_in_resource():
+            raise Unauthorized("authorized identifier not found")
+        return True
 
 
 class AuthzCheckQuestionnaireResponse(AuthzCheckResource):
@@ -121,8 +136,10 @@ def authz_check_resource(authz_user, resource):
 
 class AuthorizedUser(object):
 
-    def __init__(self, email):
-        self.email = email
+    def __init__(self, jwt_payload):
+        self.email = jwt_payload['email']
+        self.kc_identifier_system = jwt_payload['iss']
+        self.kc_identifier_value = jwt_payload['sub']
 
     @classmethod
     def from_auth_header(cls, auth_header):
@@ -135,7 +152,7 @@ class AuthorizedUser(object):
             raise Unauthorized("ill formed Bearer Token")
 
         bearer_token = auth_header.split()[-1]
-        return cls(email_from_jwt(bearer_token))
+        return cls(jwt_payload(bearer_token))
 
     def check(self, verb, fhir):
         """Raises Unauthorized unless user has authority to verb the contents
