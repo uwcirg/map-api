@@ -48,6 +48,25 @@ class AuthzCheckResource(object):
         raise Unauthorized(f"can't write {self.resource['resourceType']}")
 
 
+class AuthzCheckCarePlan(AuthzCheckResource):
+    def __init__(self, authz_user, fhir_resource):
+        super().__init__(authz_user, fhir_resource)
+
+    owned = True
+
+    def read(self):
+        """Only owning patient may read"""
+        if self.owned:
+            return True
+
+    def write(self):
+        """Initial writes allowed, and updates if same patient"""
+        if not self.user.patient_id():
+            return True
+        if not self.owned:
+            raise Unauthorized("Write CarePlan failed; mismatched owner")
+
+
 class AuthzCheckPatient(AuthzCheckResource):
     def __init__(self, authz_user, fhir_resource):
         super().__init__(authz_user, fhir_resource)
@@ -90,7 +109,11 @@ class AuthzCheckQuestionnaireResponse(AuthzCheckResource):
 def authz_check_resource(authz_user, resource):
     """Factory returns appropriate instance for authorization check"""
     t = resource['resourceType']
-    if t == 'Patient':
+    if t == 'CarePlan':
+        return AuthzCheckCarePlan(authz_user, resource)
+    elif t == 'QuestionnaireResponse':
+        return AuthzCheckQuestionnaireResponse(authz_user, resource)
+    elif t == 'Patient':
         return AuthzCheckPatient(authz_user, resource)
     else:
         return AuthzCheckResource(authz_user, resource)
