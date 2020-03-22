@@ -51,3 +51,17 @@ class FhirResource(Resource):
         resource = HapiRequest.find_by_id(resource_type, resource_id)
         au.check('read', resource)
         return resource
+
+    def put(self, resource_type, resource_id):
+        try:
+            ResourceType.validate(resource_type)
+        except ValueError as e:
+            raise BadRequest(str(e))
+
+        if int(request.json['id']) != resource_id:
+            raise BadRequest("mismatched resource ID")
+
+        au = AuthorizedUser.from_auth_header(
+            request.headers.get('Authorization'))
+        au.check('write', request.json)
+        return HapiRequest.put_resource(request.json)
