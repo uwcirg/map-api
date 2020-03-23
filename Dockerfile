@@ -8,8 +8,7 @@
 # note that celery will require a running broker and result backend
 FROM python:3.7
 
-ENV FLASK_APP=map.app:create_app \
-    FLASK_ENV=development
+ENV FLASK_APP=map.app:create_app
 
 RUN mkdir /code
 WORKDIR /code
@@ -18,6 +17,7 @@ COPY . /code/
 
 RUN pip install -r requirements.txt
 
+# todo: use gunicorn for production
 CMD flask run --host 0.0.0.0
 
 EXPOSE 5000
