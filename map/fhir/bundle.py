@@ -10,5 +10,8 @@ class Bundle(object):
 
     def resources(self):
         """generator to return each resource in the bundle"""
+        if 'entry' not in self.bundle:
+            assert self.bundle['total'] == 0
+            return
         for entry in self.bundle['entry']:
             yield entry["resource"]

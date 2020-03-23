@@ -1,28 +1,9 @@
-import json
-
 from flask import current_app, request
 from flask_restful import Resource
-from jose import jwt
-from jose.exceptions import ExpiredSignatureError, JWTClaimsError
 from werkzeug.exceptions import BadRequest
 
+from map.authz import AuthorizedUser
 from map.fhir import HapiRequest, ResourceType
-
-
-
-def validate_jwt(bearer_token):
-    """Validate bearer token signature against Authorization server public key
-    """
-    # todo: decode JSON string in config
-    json_web_keys = json.loads(current_app.config['AUTHZ_JWKS_JSON'])
-
-    json_payload = jwt.decode(
-        token=bearer_token,
-        key=json_web_keys,
-        # todo: fix JWTClaimsError
-        options={'verify_aud': False},
-    )
-    return json_payload
 
 
 class FhirSearch(Resource):
@@ -34,15 +15,23 @@ class FhirSearch(Resource):
         except ValueError as e:
             raise BadRequest(str(e))
 
-        bearer_token = request.headers['Authorization'].split()[-1]
-        try:
-            payload = validate_jwt(bearer_token)
-        except (ExpiredSignatureError, JWTClaimsError) as e:
-            raise BadRequest(str(e))
-        else:
-            current_app.logger.debug('JWT payload: %s', payload)
+        au = AuthorizedUser.from_auth_header(
+            request.headers.get('Authorization'))
 
-        return HapiRequest.find_bundle(resource_type, request.args)
+        bundle = HapiRequest.find_bundle(resource_type, request.args)
+        au.check('read', bundle)
+        return bundle
+
+    def post(self, resource_type):
+        try:
+            ResourceType.validate(resource_type)
+        except ValueError as e:
+            raise BadRequest(str(e))
+
+        au = AuthorizedUser.from_auth_header(
+            request.headers.get('Authorization'))
+        au.check('write', request.json)
+        return HapiRequest.post_resource(request.json)
 
 
 class FhirResource(Resource):
@@ -56,12 +45,23 @@ class FhirResource(Resource):
         except ValueError as e:
             raise BadRequest(str(e))
 
-        bearer_token = request.headers['Authorization'].split()[-1]
-        try:
-            payload = validate_jwt(bearer_token)
-        except (ExpiredSignatureError, JWTClaimsError) as e:
-            raise BadRequest(str(e))
-        else:
-            current_app.logger.debug('JWT payload: %s', payload)
+        au = AuthorizedUser.from_auth_header(
+            request.headers.get('Authorization'))
 
-        return HapiRequest.find_by_id(resource_type, resource_id)
+        resource = HapiRequest.find_by_id(resource_type, resource_id)
+        au.check('read', resource)
+        return resource
+
+    def put(self, resource_type, resource_id):
+        try:
+            ResourceType.validate(resource_type)
+        except ValueError as e:
+            raise BadRequest(str(e))
+
+        if int(request.json['id']) != resource_id:
+            raise BadRequest("mismatched resource ID")
+
+        au = AuthorizedUser.from_auth_header(
+            request.headers.get('Authorization'))
+        au.check('write', request.json)
+        return HapiRequest.put_resource(request.json)

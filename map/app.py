@@ -29,9 +29,7 @@ def create_app(testing=False, cli=False):
 
     # Enable CORS from localhost dev versions and prod hosts
     CORS(app, origins=[
-        'http://127.0.0.1:8888',
-        'http://lo.lo:8888',
-        'http://localhost:8888',
+        '*',  #  TODO Needs to go away on prod.  Makes dev easy tho.
         'https://stayhome.cirg.washington.edu'])
 
     return app
