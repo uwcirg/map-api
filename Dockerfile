@@ -17,6 +17,7 @@ COPY . /code/
 
 RUN pip install -r requirements.txt
 
+# todo: use gunicorn for production
 CMD flask run --host 0.0.0.0
 
 EXPOSE 5000
