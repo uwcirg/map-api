@@ -5,7 +5,6 @@ services:
     build:
       context: .
     volumes:
-      #- ./:/opt/app
       - ./map:/code/map
     ports:
       # allow override of published port

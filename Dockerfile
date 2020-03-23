@@ -8,8 +8,7 @@
 # note that celery will require a running broker and result backend
 FROM python:3.7
 
-ENV FLASK_APP=map.app:create_app \
-    FLASK_ENV=development
+ENV FLASK_APP=map.app:create_app
 
 RUN mkdir /code
 WORKDIR /code
