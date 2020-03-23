@@ -67,6 +67,16 @@ class AuthzCheckCarePlan(AuthzCheckResource):
             raise Unauthorized("Write CarePlan failed; mismatched owner")
 
 
+class AuthzCheckCommunication(AuthzCheckResource):
+    def __init__(self, authz_user, fhir_resource):
+        super().__init__(authz_user, fhir_resource)
+
+    def write(self):
+        """Initial writes allowed, and updates if same patient"""
+        # allow for time being
+        return True
+
+
 class AuthzCheckPatient(AuthzCheckResource):
     def __init__(self, authz_user, fhir_resource):
         super().__init__(authz_user, fhir_resource)
@@ -126,6 +136,8 @@ def authz_check_resource(authz_user, resource):
     t = resource['resourceType']
     if t == 'CarePlan':
         return AuthzCheckCarePlan(authz_user, resource)
+    elif t == 'Communication':
+        return AuthzCheckCommunication(authz_user, resource)
     elif t == 'QuestionnaireResponse':
         return AuthzCheckQuestionnaireResponse(authz_user, resource)
     elif t == 'Patient':
