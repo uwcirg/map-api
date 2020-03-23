@@ -11,6 +11,7 @@ class ResourceType(NameEnum):
     """Enumeration of supported FHIR resourceTypes"""
     # Extend as needed, controlled to prevent abuse of the API
     CarePlan = auto()
+    Communication = auto()
     DocumentReference = auto()
     Encounter = auto()
     Observation = auto()
