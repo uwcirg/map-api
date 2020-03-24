@@ -43,6 +43,10 @@ class AuthzCheckResource(object):
         """Default case, FHIR objects all readable"""
         return True
 
+    def unauth_read(self):
+        """Override for unauthenticated reads (i.e. no token)"""
+        return False
+
     def write(self):
         """Default case, no FHIR objects writeable"""
         raise Unauthorized(f"can't write {self.resource['resourceType']}")
@@ -59,6 +63,14 @@ class AuthzCheckCarePlan(AuthzCheckResource):
         if self.owned:
             return True
 
+    def unauth_read(self):
+        """Only allow if no patient is set in CarePlan"""
+        # TODO: waiting for template CarePlan to lose the valid `subject`
+        if False and self.resource.get('subject'):
+            return Unauthorized(
+                "Unauthorized can't view CarePlan with well defined 'subject'")
+        return True
+
     def write(self):
         """Initial writes allowed, and updates if same patient"""
         if not self.user.patient_id():
@@ -74,6 +86,15 @@ class AuthzCheckCommunication(AuthzCheckResource):
     def write(self):
         """Initial writes allowed, and updates if same patient"""
         # allow for time being
+        return True
+
+
+class AuthzCheckDocumentReference(AuthzCheckResource):
+    def __init__(self, authz_user, fhir_resource):
+        super().__init__(authz_user, fhir_resource)
+
+    def unauth_read(self):
+        """DocumentReferences wide open for reads"""
         return True
 
 
@@ -146,6 +167,33 @@ def authz_check_resource(authz_user, resource):
         return AuthzCheckResource(authz_user, resource)
 
 
+class UnauthorizedUser(object):
+    """Back door for unauthorized resource access"""
+
+    def check(self, verb, fhir):
+        """Raises Unauthorized unless user has authority to verb the contents
+
+        :param verb: 'read' or 'write'
+        :param fhir: JSON formatted FHIR contents for which an exception
+          must exist in the matching check resource class to allow for
+          unauthorized access, or Unauthorized will be raised
+        """
+        if verb not in ('read', 'write'):
+            raise ValueError(f'{verb} not in ("read", "write")')
+
+        if verb == 'write':
+            raise Unauthorized("no writes allowed as unauthorized")
+
+        if fhir['resourceType'] == 'Bundle':
+            bundle = Bundle(fhir)
+            for item in bundle.resources():
+                ar = authz_check_resource(authz_user=self, resource=item)
+                ar.unauth_read()
+        else:
+            ar = authz_check_resource(authz_user=self, resource=fhir)
+            ar.unauth_read()
+
+
 class AuthorizedUser(object):
 
     def __init__(self, jwt_payload):
@@ -160,7 +208,7 @@ class AuthorizedUser(object):
             current_app.logger.error(msg)
             raise Unauthorized(msg)
 
-        if not auth_header.startswith('Bearer '):
+        if not auth_header.startswith('Bearer ') or auth_header == 'Bearer null':
             raise Unauthorized("ill formed Bearer Token")
 
         bearer_token = auth_header.split()[-1]

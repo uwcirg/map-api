@@ -1,5 +1,6 @@
-from .authorizeduser import AuthorizedUser
+from .authorizeduser import AuthorizedUser, UnauthorizedUser
 
 __all__ = [
-    'AuthorizedUser'
+    'AuthorizedUser',
+    'UnauthorizedUser'
 ]
