@@ -1,8 +1,8 @@
 from flask import current_app, request
 from flask_restful import Resource
-from werkzeug.exceptions import BadRequest
+from werkzeug.exceptions import BadRequest, Unauthorized
 
-from map.authz import AuthorizedUser
+from map.authz import AuthorizedUser, UnauthorizedUser
 from map.fhir import HapiRequest, ResourceType
 
 
@@ -15,11 +15,14 @@ class FhirSearch(Resource):
         except ValueError as e:
             raise BadRequest(str(e))
 
-        au = AuthorizedUser.from_auth_header(
-            request.headers.get('Authorization'))
+        try:
+            authz = AuthorizedUser.from_auth_header(
+                request.headers.get('Authorization'))
+        except Unauthorized:
+            authz = UnauthorizedUser()
 
         bundle = HapiRequest.find_bundle(resource_type, request.args)
-        au.check('read', bundle)
+        authz.check('read', bundle)
         return bundle
 
     def post(self, resource_type):
@@ -50,11 +53,14 @@ class FhirResource(Resource):
         except ValueError as e:
             raise BadRequest(str(e))
 
-        au = AuthorizedUser.from_auth_header(
-            request.headers.get('Authorization'))
+        try:
+            authz = AuthorizedUser.from_auth_header(
+                request.headers.get('Authorization'))
+        except Unauthorized:
+            authz = UnauthorizedUser()
 
         resource = HapiRequest.find_by_id(resource_type, resource_id)
-        au.check('read', resource)
+        authz.check('read', resource)
         return resource
 
     def put(self, resource_type, resource_id):
