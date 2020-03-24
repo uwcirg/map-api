@@ -30,6 +30,11 @@ class FhirSearch(Resource):
 
         au = AuthorizedUser.from_auth_header(
             request.headers.get('Authorization'))
+        if not request.headers.get('Content-Type', '').startswith(
+                'application/json'):
+            raise BadRequest(
+                "required FHIR resource not found;"
+                " 'Content-Type' header ill defined.")
         au.check('write', request.json)
         return HapiRequest.post_resource(request.json)
 
@@ -57,6 +62,12 @@ class FhirResource(Resource):
             ResourceType.validate(resource_type)
         except ValueError as e:
             raise BadRequest(str(e))
+
+        if not request.headers.get('Content-Type', '').startswith(
+                'application/json'):
+            raise BadRequest(
+                "required FHIR resource not found;"
+                " 'Content-Type' header ill defined.")
 
         if int(request.json['id']) != resource_id:
             raise BadRequest("mismatched resource ID")
