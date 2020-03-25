@@ -1,5 +1,6 @@
 #!/bin/sh -e
 
+repo_path="$(cd "$(dirname "$0")" && pwd)"
 cmdname="$(basename "$0")"
 
 usage() {
@@ -14,6 +15,8 @@ USAGE
     exit 1
 }
 
+# docker-compose commands must be run in the same directory as docker-compose.yaml
+cd "${repo_path}"
 
 echo "📦 Updating images..."
 docker-compose pull
