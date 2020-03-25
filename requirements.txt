@@ -6,6 +6,7 @@ flask-migrate
 flask-sqlalchemy
 flask-marshmallow
 flask-jwt-extended
+gunicorn
 jmespath
 marshmallow-sqlalchemy
 python-dateutil
