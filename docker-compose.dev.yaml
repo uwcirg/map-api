@@ -8,3 +8,4 @@ services:
       FLASK_ENV: development
     volumes:
       - ./map:/code/map
+    cmd: flask run --host 0.0.0.0
