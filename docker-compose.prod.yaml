@@ -1,0 +1,21 @@
+# docker-compose production overrides
+---
+version: "3.4"
+services:
+  web:
+    restart: unless-stopped
+    environment:
+      # Number of worker processes for handling requests
+      # http://docs.gunicorn.org/en/stable/settings.html#workers
+      WEB_CONCURRENCY: 5
+    # mount a tmpfs to prevent gunicorn from blocking
+    # http://docs.gunicorn.org/en/stable/faq.html#blocking-os-fchmod
+    volumes:
+      - target: /tmp
+        type: tmpfs
+
+  hapi:
+    restart: unless-stopped
+
+  db:
+    restart: unless-stopped
