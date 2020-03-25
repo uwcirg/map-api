@@ -14,6 +14,7 @@ class HapiMeta(type):
 
 
 class HapiRequest(metaclass=HapiMeta):
+    """Methods to execute remote request, returning (json results, status)"""
 
     @classmethod
     def build_request(cls, path):
@@ -29,7 +30,7 @@ class HapiRequest(metaclass=HapiMeta):
         hapi_res.raise_for_status()
         bundle = hapi_res.json()
         assert bundle.get('resourceType') == 'Bundle'
-        return bundle
+        return bundle, hapi_res.status_code
 
     @classmethod
     def find_one(cls, resource_type, search_dict):
@@ -40,15 +41,17 @@ class HapiRequest(metaclass=HapiMeta):
         return
 
         """
-        bundle = HapiRequest.find_bundle(resource_type, search_dict)
+        bundle, status = HapiRequest.find_bundle(resource_type, search_dict)
         if bundle.get('total') != 1:
             current_app.logger.warn(
-                "unexpected {} items in bundle".format(bundle.get('total')))
-            return
+                f"unexpected {bundle.get('total')} items in bundle")
+            return ({
+                'message': f"expected one; found {bundle.get('total')}"},
+                400)
 
         cp = bundle['entry'][0]['resource']
         current_app.logger.debug(f"Found {resource_type}: {cp}")
-        return cp
+        return cp, status
 
     @classmethod
     def find_by_id(cls, resource_type, resource_id):
@@ -56,14 +59,14 @@ class HapiRequest(metaclass=HapiMeta):
         hapi_res = requests.get(HapiRequest.build_request(
             f"{resource_type}/{resource_id}"), headers=ACCEPT_JSON)
         hapi_res.raise_for_status()
-        return hapi_res.json()
+        return hapi_res.json(), hapi_res.status_code
 
     @classmethod
     def post_resource(cls, resource):
         url = cls.build_request(f'{resource["resourceType"]}')
         result = requests.post(url, json=resource, headers=ACCEPT_JSON)
         result.raise_for_status()
-        return result.json()
+        return result.json(), result.status_code
 
     @classmethod
     def put_resource(cls, resource):
@@ -71,4 +74,4 @@ class HapiRequest(metaclass=HapiMeta):
             f'{resource["resourceType"]}/{resource["id"]}')
         result = requests.put(url, json=resource, headers=ACCEPT_JSON)
         result.raise_for_status()
-        return result.json()
+        return result.json(), result.status_code
