@@ -1,4 +1,4 @@
-from flask import current_app, request
+from flask import current_app, make_response, request
 from flask_restful import Resource
 from werkzeug.exceptions import BadRequest, Unauthorized
 
@@ -21,9 +21,9 @@ class FhirSearch(Resource):
         except Unauthorized:
             authz = UnauthorizedUser()
 
-        bundle = HapiRequest.find_bundle(resource_type, request.args)
+        bundle, status = HapiRequest.find_bundle(resource_type, request.args)
         authz.check('read', bundle)
-        return bundle
+        return make_response(bundle, status)
 
     def post(self, resource_type):
         try:
@@ -39,7 +39,7 @@ class FhirSearch(Resource):
                 "required FHIR resource not found;"
                 " 'Content-Type' header ill defined.")
         au.check('write', request.json)
-        return HapiRequest.post_resource(request.json)
+        return make_response(HapiRequest.post_resource(request.json))
 
 
 class FhirResource(Resource):
@@ -59,9 +59,9 @@ class FhirResource(Resource):
         except Unauthorized:
             authz = UnauthorizedUser()
 
-        resource = HapiRequest.find_by_id(resource_type, resource_id)
+        resource, status = HapiRequest.find_by_id(resource_type, resource_id)
         authz.check('read', resource)
-        return resource
+        return make_response(resource, status)
 
     def put(self, resource_type, resource_id):
         try:
@@ -81,4 +81,4 @@ class FhirResource(Resource):
         au = AuthorizedUser.from_auth_header(
             request.headers.get('Authorization'))
         au.check('write', request.json)
-        return HapiRequest.put_resource(request.json)
+        return make_response(HapiRequest.put_resource(request.json))

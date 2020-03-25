@@ -13,15 +13,17 @@ class CarePlan(object):
     @classmethod
     def default(cls):
         """Return the default CarePlan"""
-        return HapiRequest.find_one(
+        result, status = HapiRequest.find_one(
             cls.resource_type.name, cls.default_query_params)
+        return result
 
     @classmethod
     def subject_patient(cls, patient_id):
         """Returns bundle of CarePlans for which given patient is subject"""
-        return HapiRequest.find_bundle(
+        result, status = HapiRequest.find_bundle(
             cls.resource_type.name,
             {"subject": f"Patient/{patient_id}"})
+        return result
 
     @classmethod
     def documents(cls, patient_id):
