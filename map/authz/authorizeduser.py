@@ -66,8 +66,7 @@ class AuthzCheckCarePlan(AuthzCheckResource):
 
     def unauth_read(self):
         """Only allow if no patient is set in CarePlan"""
-        # TODO: waiting for template CarePlan to lose the valid `subject`
-        if False and self.resource.get('subject'):
+        if self.resource.get('subject'):
             raise Unauthorized(
                 "Unauthorized can't view CarePlan with well defined 'subject'")
         return True
