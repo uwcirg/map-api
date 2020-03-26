@@ -159,6 +159,8 @@ def authz_check_resource(authz_user, resource):
         return AuthzCheckCarePlan(authz_user, resource)
     elif t == 'Communication':
         return AuthzCheckCommunication(authz_user, resource)
+    elif t == 'DocumentReference':
+        return AuthzCheckDocumentReference(authz_user, resource)
     elif t == 'QuestionnaireResponse':
         return AuthzCheckQuestionnaireResponse(authz_user, resource)
     elif t == 'Patient':
