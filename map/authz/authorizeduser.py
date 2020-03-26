@@ -45,7 +45,8 @@ class AuthzCheckResource(object):
 
     def unauth_read(self):
         """Override for unauthenticated reads (i.e. no token)"""
-        return False
+        raise Unauthorized(
+            f"Unauthorized; can't view {self.resource['resourceType']}")
 
     def write(self):
         """Default case, no FHIR objects writeable"""
@@ -65,9 +66,8 @@ class AuthzCheckCarePlan(AuthzCheckResource):
 
     def unauth_read(self):
         """Only allow if no patient is set in CarePlan"""
-        # TODO: waiting for template CarePlan to lose the valid `subject`
-        if False and self.resource.get('subject'):
-            return Unauthorized(
+        if self.resource.get('subject'):
+            raise Unauthorized(
                 "Unauthorized can't view CarePlan with well defined 'subject'")
         return True
 
