@@ -121,6 +121,8 @@ class AuthzCheckPatient(AuthzCheckResource):
 
     def read(self):
         """Only owning patient may read"""
+        if 'admin' in self.user.roles:
+            return True
         if not self._kc_ident_in_resource():
             raise Unauthorized("authorized identifier not found")
         return True
@@ -202,6 +204,10 @@ class AuthorizedUser(object):
         self.email = jwt_payload['email']
         self.kc_identifier_system = jwt_payload['iss']
         self.kc_identifier_value = jwt_payload['sub']
+
+        # IF the client requested a scope including roles, obtain
+        # the list stored as a dict under 'realm_access', otherwise []
+        self.roles = jwt_payload.get('realm_access', {}).get('roles', [])
 
     @classmethod
     def from_auth_header(cls, auth_header):
