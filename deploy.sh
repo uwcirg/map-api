@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh -eu
 
 repo_path="$(cd "$(dirname "$0")" && pwd)"
 cmdname="$(basename "$0")"
@@ -8,7 +8,7 @@ usage() {
 Usage:
     $cmdname
 
-    Docker deployment script for web target
+    Docker deployment script
     Pull the latest docker image and recreate relevant containers
 
 USAGE
