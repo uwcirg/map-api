@@ -13,6 +13,10 @@ ENV FLASK_APP=map.app:create_app
 RUN mkdir /code
 WORKDIR /code
 
+# cache hack; very fragile
+COPY requirements.txt ./
+RUN pip install --requirement requirements.txt
+
 COPY . /code/
 
 RUN pip install -r requirements.txt
