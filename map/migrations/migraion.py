@@ -76,7 +76,7 @@ class Migration(object):
         for f in os.listdir(versions_dir):
             if not f.endswith('.py'):
                 continue
-            mod_name = f[:-3]
+            mod_name = os.path.splitext(f)[0]
             file_path = os.path.join(versions_dir, f)
             with add_to_path(file_path):
                 spec = importlib.util.spec_from_file_location(
@@ -114,7 +114,7 @@ class Migration(object):
 
         # Run this step
         msg = mod.__doc__ or mod.__file__
-        current_app.logger.info(f"'{msg}'")
+        current_app.logger.info("%s", msg)
         upgrade()
 
         # Having run said step, persist this fact
