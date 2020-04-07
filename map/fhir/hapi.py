@@ -18,6 +18,10 @@ class HapiRequest(metaclass=HapiMeta):
 
     @classmethod
     def build_request(cls, path):
+        if path is None:
+            raise ValueError("can't request w/o path!")
+        if cls.base_url is None:
+            raise ValueError("config error; can't request w/o base_url")
         return cls.base_url + path
 
     @classmethod

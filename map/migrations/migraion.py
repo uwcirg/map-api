@@ -114,7 +114,7 @@ class Migration(object):
 
         # Run this step
         msg = mod.__doc__ or mod.__file__
-        current_app.logger.info("%s", msg)
+        current_app.logger.warn("%s", msg)
         upgrade()
 
         # Having run said step, persist this fact
@@ -127,5 +127,10 @@ class Migration(object):
         if self.available_migrations:
             max_available = max(self.available_migrations.keys())
 
-        while self.current() < max_available:
-            self.run(self.current() + 1)
+        last_run = self.current()
+        while last_run < max_available:
+            last_run += 1
+            # skip over missing migrations
+            if last_run not in self.available_migrations:
+                continue
+            self.run(last_run)
