@@ -9,6 +9,14 @@ MIGRATION_SYSTEM = 'https://stayhome.app/migrations'
 MIGRATION_VALUE = 'track_version'
 INITIAL_VERSION = 0
 
+INITIAL_MIGRATION_MARKER = {
+    'resourceType': ResourceType.Basic.value,
+    'identifier': [
+        {'system': MIGRATION_SYSTEM, 'value': MIGRATION_VALUE}],
+    'code': {'coding': [{
+        'system': MIGRATION_SYSTEM, 'code': INITIAL_VERSION}]},
+}
+
 
 @contextmanager
 def add_to_path(p):
@@ -46,14 +54,8 @@ class Migration(object):
             return
 
         # Initialize with current settings
-        version_tracker = {
-            'resourceType': ResourceType.Basic.value,
-            'identifier': [
-                {'system': MIGRATION_SYSTEM, 'value': MIGRATION_VALUE}],
-            'code': {'coding': [{
-                'system': MIGRATION_SYSTEM, 'code': INITIAL_VERSION}]},
-        }
-        response, status = HapiRequest.post_resource(resource=version_tracker)
+        response, status = HapiRequest.post_resource(
+            resource=INITIAL_MIGRATION_MARKER)
         self.version_tracker = response
 
     def import_available(self):
