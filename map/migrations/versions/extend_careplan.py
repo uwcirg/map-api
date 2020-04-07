@@ -2,7 +2,7 @@
 from flask import current_app
 from map.fhir import Bundle, HapiRequest, ResourceType
 
-version = 3
+version = 5
 
 missing_questionnaire = {
     "detail": {
@@ -24,8 +24,8 @@ def add_missing_questionnaire(cp):
                 q['detail'].get('description', '') ==
                 missing_questionnaire['detail']['description']):
             # already present; leave
-            current_app.logger.warn(
-                "no change to CarePlan for %s", cp['subject'])
+            print(
+                "no change to CarePlan for %s" % cp['subject'])
             return cp, dirty
 
     cp['activity'].append(missing_questionnaire)
@@ -48,10 +48,10 @@ def upgrade():
 
         cp, changed = add_missing_questionnaire(cp)
         if changed:
-            current_app.logger.warn(
-                "Added missing Questionnaire to CarePlan %d for "
-                "%s", cp['id'], cp['subject'])
+            print(
+                "Added missing Questionnaire to CarePlan %s for "
+                "%s" % (cp['id'], str(cp['subject'])))
             result, status = HapiRequest.put_resource(cp)
             if status != 200:
-                current_app.logger.error(
-                    "Failed with status %d: %s", status, result.text)
+                print(
+                    "Failed with status %d: %s" % (status, result.text))

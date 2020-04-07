@@ -69,7 +69,7 @@ class Migration(object):
             os.path.dirname(sys.modules[self.__module__].__file__),
             'versions')
         if not os.path.isdir(versions_dir):
-            current_app.logger.warn(
+            print(
                 f"{versions_dir} directory not found; skipping migrations")
             return
 
@@ -114,7 +114,7 @@ class Migration(object):
 
         # Run this step
         msg = mod.__doc__ or mod.__file__
-        current_app.logger.warn("%s", msg)
+        print(msg)
         upgrade()
 
         # Having run said step, persist this fact
