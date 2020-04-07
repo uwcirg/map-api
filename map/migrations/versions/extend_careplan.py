@@ -2,7 +2,7 @@
 from flask import current_app
 from map.fhir import Bundle, HapiRequest, ResourceType
 
-version = 5
+version = 6
 
 missing_questionnaire = {
     "detail": {
@@ -38,7 +38,7 @@ def upgrade():
     careplanTemplateId = 1058
 
     # Obtain all CarePlans based on the template, assigned to a Patient
-    params = {'based-on': careplanTemplateId}
+    params = {'based-on': careplanTemplateId, '_count': 1000}
     results, _ = HapiRequest.find_bundle(
         resource_type=ResourceType.CarePlan.value, search_dict=params)
     care_plans = Bundle(results)
