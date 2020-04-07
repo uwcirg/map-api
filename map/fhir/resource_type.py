@@ -10,6 +10,7 @@ class NameEnum(Enum):
 class ResourceType(NameEnum):
     """Enumeration of supported FHIR resourceTypes"""
     # Extend as needed, controlled to prevent abuse of the API
+    Basic = auto()
     CarePlan = auto()
     Communication = auto()
     DocumentReference = auto()
