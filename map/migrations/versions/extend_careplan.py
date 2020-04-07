@@ -1,7 +1,8 @@
 """Add additional Questionnaire to all appropriate CarePlans"""
+from flask import current_app
 from map.fhir import Bundle, HapiRequest, ResourceType
 
-version = 1
+version = 5
 
 missing_questionnaire = {
     "detail": {
@@ -23,6 +24,8 @@ def add_missing_questionnaire(cp):
                 q['detail'].get('description', '') ==
                 missing_questionnaire['detail']['description']):
             # already present; leave
+            print(
+                "no change to CarePlan for %s" % cp['subject'])
             return cp, dirty
 
     cp['activity'].append(missing_questionnaire)
@@ -45,4 +48,10 @@ def upgrade():
 
         cp, changed = add_missing_questionnaire(cp)
         if changed:
-            HapiRequest.put_resource(cp)
+            print(
+                "Added missing Questionnaire to CarePlan %s for "
+                "%s" % (cp['id'], str(cp['subject'])))
+            result, status = HapiRequest.put_resource(cp)
+            if status != 200:
+                print(
+                    "Failed with status %d: %s" % (status, result.text))
