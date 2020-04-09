@@ -8,6 +8,13 @@ import os
 # see https://www.hl7.org/fhir/history.html
 API_PREFIX = '/api/r4'
 
+CODE_SYSTEM = {
+    'open_communication': {
+        'system': "https://stayhome.app/CodeSystem/communication-category",
+        'code': "system-announcement"
+    }
+}
+
 ENV = os.getenv("FLASK_ENV")
 HAPI_URL = os.getenv("HAPI_URL")
 AUTHZ_JWKS_JSON = os.getenv("AUTHZ_JWKS_JSON")
