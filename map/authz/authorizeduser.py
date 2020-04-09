@@ -97,7 +97,8 @@ class AuthzCheckCommunication(AuthzCheckResource):
                 if coding == open_communication:
                     return True
 
-        raise Unauthorized("'category' allowing unauthorized access not found")
+        raise Unauthorized(
+            "Unauthorized; 'category' allowing unauthorized access not found")
 
     def write(self):
         """Initial writes allowed, and updates if same patient"""
