@@ -83,6 +83,23 @@ class AuthzCheckCommunication(AuthzCheckResource):
     def __init__(self, authz_user, fhir_resource):
         super().__init__(authz_user, fhir_resource)
 
+    def unauth_read(self):
+        """Communication with matching identifier available for reads
+
+        The configured `category` is used to tag Communications displayed
+        prior to login - allow access if present.
+
+        """
+        open_communication = current_app.config.get("CODE_SYSTEM")[
+            'open_communication']
+        for i in self.resource.get('category', []):
+            for coding in i['coding']:
+                if coding == open_communication:
+                    return True
+
+        raise Unauthorized(
+            "Unauthorized; 'category' allowing unauthorized access not found")
+
     def write(self):
         """Initial writes allowed, and updates if same patient"""
         # allow for time being
