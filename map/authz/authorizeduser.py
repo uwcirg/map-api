@@ -79,6 +79,15 @@ class AuthzCheckCarePlan(AuthzCheckResource):
             raise Unauthorized("Write CarePlan failed; mismatched owner")
 
 
+class AuthzCheckConsent(AuthzCheckResource):
+    def __init__(self, authz_user, fhir_resource):
+        super().__init__(authz_user, fhir_resource)
+
+    def write(self):
+        """Allow consent writes"""
+        return True
+
+
 class AuthzCheckCommunication(AuthzCheckResource):
     def __init__(self, authz_user, fhir_resource):
         super().__init__(authz_user, fhir_resource)
@@ -178,6 +187,8 @@ def authz_check_resource(authz_user, resource):
         return AuthzCheckCarePlan(authz_user, resource)
     elif t == 'Communication':
         return AuthzCheckCommunication(authz_user, resource)
+    elif t == 'Consent':
+        return AuthzCheckConsent(authz_user, resource)
     elif t == 'DocumentReference':
         return AuthzCheckDocumentReference(authz_user, resource)
     elif t == 'QuestionnaireResponse':
