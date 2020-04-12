@@ -13,6 +13,7 @@ class ResourceType(NameEnum):
     Basic = auto()
     CarePlan = auto()
     Communication = auto()
+    Consent = auto()
     DocumentReference = auto()
     Encounter = auto()
     Observation = auto()
