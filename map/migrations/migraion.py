@@ -1,5 +1,4 @@
 from contextlib import contextmanager
-from flask import current_app
 import importlib.util
 import os
 import sys
