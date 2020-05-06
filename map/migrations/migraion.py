@@ -1,5 +1,4 @@
 from contextlib import contextmanager
-from flask import current_app
 import importlib.util
 import os
 import sys
@@ -51,6 +50,8 @@ class Migration(object):
 
         if len(bundle) == 1:
             self.version_tracker = [b for b in bundle.resources()][0]
+            print("migraion: last migration run: {}".format(
+                self.version_tracker))
             return
 
         # Initialize with current settings
@@ -88,6 +89,8 @@ class Migration(object):
                         "Conflict: multiple migrations for version "
                         f"{mod.version}")
                 self.available_migrations[mod.version] = mod
+        print("found available migrations: {}".format(
+            self.available_migrations))
 
     def current(self):
         """Returns current version, i.e. last migration run"""
@@ -95,7 +98,9 @@ class Migration(object):
             raise ValueError("Ill formed version code: {}".format(
                 self.version_tracker['code']['coding']
             ))
-        return int(self.version_tracker['code']['coding'][0]['code'])
+        cur = int(self.version_tracker['code']['coding'][0]['code'])
+        print("current (last migration run): {}".format(cur))
+        return cur
 
     def mark_version(self, version_string):
         """record version_string as the last migration run"""

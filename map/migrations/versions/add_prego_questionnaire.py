@@ -1,16 +1,16 @@
-"""Add additional Questionnaire to all appropriate CarePlans"""
+"""Add Pregnancy Questionnaire to all appropriate CarePlans"""
 from map.migrations.helpers import extend_care_plan
 
-version = 6
+version = 7
 
 missing_questionnaire = {
     "detail": {
       "instantiatesCanonical": [
-        "Questionnaire/1376"
+        "Questionnaire/1442"
       ],
       "status": "scheduled",
       "doNotPerform": False,
-      "description": "COVID-19 testing questionnaire"
+      "description": "Pregnancy questionnaire"
     }
   }
 
