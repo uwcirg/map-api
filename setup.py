@@ -13,8 +13,7 @@ setup(
         'flask-restful',
         'flask-migrate',
         'flask-jwt-extended',
-        'flask-marshmallow',
-        'marshmallow-sqlalchemy',
+        'pytest-mock',
         'python-dotenv',
         'passlib'
     ],
