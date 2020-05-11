@@ -1,0 +1,802 @@
+{
+  "resourceType": "Bundle",
+  "id": "f38f42e8-05d3-4af6-9798-bde243c3d622",
+  "meta": {
+    "lastUpdated": "2020-05-11T17:59:25.631+00:00"
+  },
+  "type": "searchset",
+  "link": [
+    {
+      "relation": "self",
+      "url": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient?_format=json"
+    },
+    {
+      "relation": "next",
+      "url": "http://localhost:8080/hapi-fhir-jpaserver/fhir?_getpages=f38f42e8-05d3-4af6-9798-bde243c3d622&_getpagesoffset=20&_count=20&_format=json&_pretty=true&_bundletype=searchset"
+    }
+  ],
+  "entry": [
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/23",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "23",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-03-24T21:13:56.993+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody/></table></div>"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/9",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "9",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-03-24T21:37:50.501+00:00",
+          "source": "#oLs0TiQIA32kBwa1"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">Testa <b>TESTA </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>a2070411-46e8-4ab3-9c16-2dadcbf63d72</td></tr><tr><td>Address</td><td/></tr><tr><td>Date of birth</td><td><span>07 May 0008</span></td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "a2070411-46e8-4ab3-9c16-2dadcbf63d72"
+          }
+        ],
+        "name": [
+          {
+            "family": "Testa",
+            "given": [
+              "Testa"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "(650) 430-9890",
+            "rank": 99
+          },
+          {
+            "system": "email",
+            "value": "ivanc+20200324f@uw.edu",
+            "rank": 1
+          }
+        ],
+        "gender": "male",
+        "birthDate": "0008-05-07T00:00:00.000",
+        "address": [
+          {
+            "use": "home",
+            "postalCode": "98108"
+          },
+          {
+            "postalCode": "98108"
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/15",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "15",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-03-24T21:39:55.050+00:00",
+          "source": "#1Gfc3aL6g9ljqOmH"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\"/><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>64db7926-feff-4616-bb73-01980f5c2210</td></tr><tr><td>Address</td><td/></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "64db7926-feff-4616-bb73-01980f5c2210"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "rank": 99
+          },
+          {
+            "system": "email",
+            "value": "demo@example.com",
+            "rank": 99
+          }
+        ],
+        "address": [
+          {
+            "use": "home"
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/16",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "16",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-03-24T21:40:07.185+00:00",
+          "source": "#3lDam3dSIDZnjbyC"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\"/><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>64db7926-feff-4616-bb73-01980f5c2210</td></tr><tr><td>Address</td><td/></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "64db7926-feff-4616-bb73-01980f5c2210"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "rank": 99
+          },
+          {
+            "system": "email",
+            "value": "demo@example.com",
+            "rank": 99
+          }
+        ],
+        "address": [
+          {
+            "use": "home",
+            "postalCode": "98105"
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/17",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "17",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-03-24T21:47:40.702+00:00",
+          "source": "#uprJzUndLRwi1GC0"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">Testa <b>TESTA </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>8fab94c6-21b8-4385-8ff1-2b4b105a4568</td></tr><tr><td>Address</td><td/></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "8fab94c6-21b8-4385-8ff1-2b4b105a4568"
+          }
+        ],
+        "name": [
+          {
+            "family": "Testa",
+            "given": [
+              "Testa"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "rank": 99
+          },
+          {
+            "system": "email",
+            "value": "ivanc+20200326g@uw.edu",
+            "rank": 99
+          }
+        ],
+        "address": [
+          {
+            "use": "home",
+            "postalCode": "98108"
+          },
+          {
+            "postalCode": "98108"
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/24",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "24",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-03-24T21:56:16.033+00:00",
+          "source": "#VNJHPTvaYCf8fdom"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">Testa <b>TESTA </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>62ca2abb-172a-4050-9db2-048d6dc37da2</td></tr><tr><td>Address</td><td/></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "62ca2abb-172a-4050-9db2-048d6dc37da2"
+          }
+        ],
+        "name": [
+          {
+            "family": "Testa",
+            "given": [
+              "Testa"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "rank": 99
+          },
+          {
+            "system": "email",
+            "value": "ivanc+20200326h@uw.edu",
+            "rank": 99
+          }
+        ],
+        "gender": "male",
+        "address": [
+          {
+            "use": "home",
+            "postalCode": "98108"
+          },
+          {
+            "postalCode": "98108"
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/27",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "27",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-03-24T22:04:28.884+00:00",
+          "source": "#lHyyD1cvkwckZdU9"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\"/><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>7af3d402-7c0c-46ae-b298-481cea828b74</td></tr><tr><td>Address</td><td/></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "7af3d402-7c0c-46ae-b298-481cea828b74"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "rank": 99
+          },
+          {
+            "system": "email",
+            "value": "ivanc+20200326j@uw.edu",
+            "rank": 99
+          }
+        ],
+        "gender": "male",
+        "address": [
+          {
+            "use": "home",
+            "postalCode": "98108"
+          },
+          {
+            "postalCode": "98108"
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/32",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "32",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-03-24T22:52:17.241+00:00",
+          "source": "#5kipmuH4iufXZKIl"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\"/><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>7a4ec6ee-e34a-4837-adb7-45ce6c39c159</td></tr><tr><td>Address</td><td/></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "7a4ec6ee-e34a-4837-adb7-45ce6c39c159"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "rank": 99
+          },
+          {
+            "system": "email",
+            "value": "bill.lober+stayhome1@gmail.com",
+            "rank": 99
+          }
+        ],
+        "address": [
+          {
+            "use": "home"
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/33",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "33",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-03-24T22:52:23.956+00:00",
+          "source": "#wllEFfSeT02Efk3n"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\"/><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>7a4ec6ee-e34a-4837-adb7-45ce6c39c159</td></tr><tr><td>Address</td><td/></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "7a4ec6ee-e34a-4837-adb7-45ce6c39c159"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "rank": 99
+          },
+          {
+            "system": "email",
+            "value": "bill.lober+stayhome1@gmail.com",
+            "rank": 99
+          }
+        ],
+        "address": [
+          {
+            "use": "home"
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/34",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "34",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-03-24T22:52:25.830+00:00",
+          "source": "#FcXZC3OPZ5Oy75Ym"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\"/><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>0da6cbca-2f2f-4fa4-b768-b513ac003c71</td></tr><tr><td>Address</td><td/></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "0da6cbca-2f2f-4fa4-b768-b513ac003c71"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "rank": 99
+          },
+          {
+            "system": "email",
+            "value": "psbrandt@uw.edu",
+            "rank": 99
+          }
+        ],
+        "address": [
+          {
+            "use": "home"
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/35",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "35",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-03-24T22:55:44.162+00:00",
+          "source": "#Y07tyYj7hlPMv2Pg"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\"/><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>83f214a8-f255-4e93-a156-391961e182ff</td></tr><tr><td>Address</td><td/></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "83f214a8-f255-4e93-a156-391961e182ff"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "rank": 99
+          },
+          {
+            "system": "email",
+            "value": "mcjustin+200324d@uw.edu",
+            "rank": 99
+          }
+        ],
+        "address": [
+          {
+            "use": "home"
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/39",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "39",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-03-24T23:23:17.226+00:00",
+          "source": "#SDxLItIF0sfnqce4"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\"/><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>6d98f979-34b2-4e77-bdec-0881af153072</td></tr><tr><td>Address</td><td/></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "6d98f979-34b2-4e77-bdec-0881af153072"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "rank": 99
+          },
+          {
+            "system": "email",
+            "value": "haalbu+24b@uw.edu",
+            "rank": 99
+          }
+        ],
+        "address": [
+          {
+            "use": "home"
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/40",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "40",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-03-24T23:35:59.412+00:00",
+          "source": "#nETSHU7DhmwpBAKW"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>5e315794-640a-45e5-ba50-011e15274dee</td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "5e315794-640a-45e5-ba50-011e15274dee"
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/41",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "41",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-03-24T23:43:11.451+00:00",
+          "source": "#3EWJI1Gule7RJP5b"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>4b59c775-63f0-4ab2-8206-0aec41a614de</td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "4b59c775-63f0-4ab2-8206-0aec41a614de"
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/42",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "42",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-03-24T23:50:04.349+00:00",
+          "source": "#2sqcnfq6VGWxpqie"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>59a1b38b-08b9-45c8-8f81-6cafc1b3e988</td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "59a1b38b-08b9-45c8-8f81-6cafc1b3e988"
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/8",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "8",
+        "meta": {
+          "versionId": "7",
+          "lastUpdated": "2020-04-02T23:22:20.636+00:00",
+          "source": "#XKPhZ5y9eCsWlXBL"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\"/><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>6c0c4a48-ace0-4aff-9659-5e58f261de62</td></tr><tr><td>Address</td><td/></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "6c0c4a48-ace0-4aff-9659-5e58f261de62"
+          }
+        ],
+        "name": [
+          {
+            "family": "Bugni",
+            "given": [
+              "Paul"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "sms",
+            "rank": 1
+          },
+          {
+            "system": "email",
+            "value": "pbugni@uw.edu",
+            "rank": 99
+          },
+          {
+            "system": "phone",
+            "value": "987-654-3210",
+            "rank": 99
+          }
+        ],
+        "gender": "other",
+        "address": [
+          {
+            "use": "home",
+            "postalCode": "95616"
+          },
+          {
+            "postalCode": "98006"
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/43",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "43",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-03-24T23:57:38.984+00:00",
+          "source": "#2BTt0RJIWuOUOvqp"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\"/><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>86481575-2934-43fb-9316-0b2dd1df6286</td></tr><tr><td>Address</td><td/></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "86481575-2934-43fb-9316-0b2dd1df6286"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "rank": 99
+          },
+          {
+            "system": "email",
+            "value": "karras@test.com",
+            "rank": 1
+          }
+        ],
+        "gender": "unknown",
+        "address": [
+          {
+            "use": "home"
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/56",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "56",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-03-25T01:34:40.141+00:00",
+          "source": "#h7pSRhXmNLwgerpo"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>83cf79fb-38b5-46ab-b2c5-8e8986a3bb09</td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "83cf79fb-38b5-46ab-b2c5-8e8986a3bb09"
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/60",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "60",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-03-25T03:49:09.425+00:00",
+          "source": "#GlE9Wn3ugmKpGqcZ"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>41e46c65-6fe8-4c6d-b362-033d8ec58200</td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "41e46c65-6fe8-4c6d-b362-033d8ec58200"
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/72",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "72",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-03-25T16:10:05.410+00:00",
+          "source": "#I6GCpDuXvKU0b1ev"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>8920</td></tr><tr><td>Address</td><td/></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "8920"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "rank": 99
+          },
+          {
+            "system": "email",
+            "value": "psbrandt@uw.edu",
+            "rank": 99
+          }
+        ],
+        "address": [
+          {
+            "use": "home"
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    }
+  ]
+}

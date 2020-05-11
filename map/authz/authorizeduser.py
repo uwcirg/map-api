@@ -12,7 +12,11 @@ def validate_jwt(bearer_token):
     """Validate bearer token signature against Authorization server public key
     """
     # todo: decode JSON string in config
-    json_web_keys = json.loads(current_app.config['AUTHZ_JWKS_JSON'])
+    keys = current_app.config['AUTHZ_JWKS_JSON']
+    try:
+        json_web_keys = json.loads(keys)
+    except json.decoder.JSONDecodeError:
+        json_web_keys = keys
 
     json_payload = jwt.decode(
         token=bearer_token,
