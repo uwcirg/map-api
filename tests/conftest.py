@@ -4,11 +4,13 @@ import pytest
 from map.models import User
 from map.app import create_app
 from map.extensions import db as _db
+SECRET = 'testing-secret'
 
 
 @pytest.fixture
 def app():
     app = create_app(testing=True)
+    app.config['AUTHZ_JWKS_JSON'] = SECRET
     return app
 
 

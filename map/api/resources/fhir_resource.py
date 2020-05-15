@@ -1,4 +1,4 @@
-from flask import current_app, make_response, request
+from flask import make_response, request
 from flask_restful import Resource
 from werkzeug.exceptions import BadRequest, Unauthorized
 
