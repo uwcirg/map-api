@@ -1,0 +1,1657 @@
+{
+  "resourceType": "Bundle",
+  "id": "98a773a2-bc32-4220-8b62-5ab50c220943",
+  "meta": {
+    "lastUpdated": "2020-05-19T16:02:33.627+00:00"
+  },
+  "type": "searchset",
+  "total": 19,
+  "link": [
+    {
+      "relation": "self",
+      "url": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Consent?_include=Consent%3Apatient&organization=Organization%2F1465&status=active&type=permit"
+    }
+  ],
+  "entry": [
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Consent/1659",
+      "resource": {
+        "resourceType": "Consent",
+        "id": "1659",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-17T20:24:34.259+00:00",
+          "source": "#LBnX1i0ukzMfmfOv"
+        },
+        "status": "active",
+        "scope": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+              "code": "patient-privacy"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "59284-0"
+              }
+            ]
+          }
+        ],
+        "patient": {
+          "reference": "Patient/1202"
+        },
+        "organization": [
+          {
+            "reference": "Organization/1465"
+          }
+        ],
+        "provision": {
+          "type": "permit",
+          "period": {
+            "start": "2020-04-17T13:24:58.231546"
+          },
+          "class": [
+            {
+              "system": "https://stayhome.app/CodeSystem/consent-content-class",
+              "code": "location_contact-information_symptoms-testing-conditions"
+            }
+          ]
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Consent/1675",
+      "resource": {
+        "resourceType": "Consent",
+        "id": "1675",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-17T22:13:40.709+00:00",
+          "source": "#DolbU9hriRpEketi"
+        },
+        "status": "active",
+        "scope": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+              "code": "patient-privacy"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "59284-0"
+              }
+            ]
+          }
+        ],
+        "patient": {
+          "reference": "Patient/1206"
+        },
+        "organization": [
+          {
+            "reference": "Organization/1465"
+          }
+        ],
+        "provision": {
+          "type": "permit",
+          "period": {
+            "start": "2020-04-17T15:13:39.826"
+          },
+          "class": [
+            {
+              "system": "https://stayhome.app/CodeSystem/consent-content-class",
+              "code": "location_contact-information_symptoms-testing-conditions"
+            }
+          ]
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Consent/1685",
+      "resource": {
+        "resourceType": "Consent",
+        "id": "1685",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-17T22:15:12.158+00:00",
+          "source": "#oomjTecG5SuWPqWj"
+        },
+        "status": "active",
+        "scope": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+              "code": "patient-privacy"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "59284-0"
+              }
+            ]
+          }
+        ],
+        "patient": {
+          "reference": "Patient/1677"
+        },
+        "organization": [
+          {
+            "reference": "Organization/1465"
+          }
+        ],
+        "provision": {
+          "type": "permit",
+          "period": {
+            "start": "2020-04-17T15:15:11.472"
+          },
+          "class": [
+            {
+              "system": "https://stayhome.app/CodeSystem/consent-content-class",
+              "code": "location_contact-information_symptoms-testing-conditions"
+            }
+          ]
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Consent/1699",
+      "resource": {
+        "resourceType": "Consent",
+        "id": "1699",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-17T23:43:09.047+00:00",
+          "source": "#0WRTRuZOraoLF8nB"
+        },
+        "status": "active",
+        "scope": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+              "code": "patient-privacy"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "59284-0"
+              }
+            ]
+          }
+        ],
+        "patient": {
+          "reference": "Patient/1689"
+        },
+        "organization": [
+          {
+            "reference": "Organization/1465"
+          }
+        ],
+        "provision": {
+          "type": "permit",
+          "period": {
+            "start": "2020-04-17T16:43:06.807"
+          },
+          "class": [
+            {
+              "system": "https://stayhome.app/CodeSystem/consent-content-class",
+              "code": "location_contact-information_symptoms-testing-conditions"
+            }
+          ]
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Consent/1723",
+      "resource": {
+        "resourceType": "Consent",
+        "id": "1723",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-18T02:06:40.318+00:00",
+          "source": "#VZyzNiRzNV1AAzoB"
+        },
+        "status": "active",
+        "scope": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+              "code": "patient-privacy"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "59284-0"
+              }
+            ]
+          }
+        ],
+        "patient": {
+          "reference": "Patient/1221"
+        },
+        "organization": [
+          {
+            "reference": "Organization/1465"
+          }
+        ],
+        "provision": {
+          "type": "permit",
+          "period": {
+            "start": "2020-04-17T19:06:40.203"
+          },
+          "class": [
+            {
+              "system": "https://stayhome.app/CodeSystem/consent-content-class",
+              "code": "location_contact-information_symptoms-testing-conditions"
+            }
+          ]
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Consent/1727",
+      "resource": {
+        "resourceType": "Consent",
+        "id": "1727",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-18T02:07:47.503+00:00",
+          "source": "#KQe8pc2rxErmcsCH"
+        },
+        "status": "active",
+        "scope": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+              "code": "patient-privacy"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "59284-0"
+              }
+            ]
+          }
+        ],
+        "patient": {
+          "reference": "Patient/1221"
+        },
+        "organization": [
+          {
+            "reference": "Organization/1465"
+          }
+        ],
+        "provision": {
+          "type": "permit",
+          "period": {
+            "start": "2020-04-17T19:07:47.431"
+          },
+          "class": [
+            {
+              "system": "https://stayhome.app/CodeSystem/consent-content-class",
+              "code": "location_contact-information_symptoms-testing-conditions"
+            }
+          ]
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Consent/1718",
+      "resource": {
+        "resourceType": "Consent",
+        "id": "1718",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-18T00:36:16.060+00:00",
+          "source": "#ScVy7MCugu4QScGZ"
+        },
+        "status": "active",
+        "scope": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+              "code": "patient-privacy"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "59284-0"
+              }
+            ]
+          }
+        ],
+        "patient": {
+          "reference": "Patient/1450"
+        },
+        "organization": [
+          {
+            "reference": "Organization/1465"
+          }
+        ],
+        "provision": {
+          "type": "permit",
+          "period": {
+            "start": "2020-04-17T17:36:15.548"
+          },
+          "class": [
+            {
+              "system": "https://stayhome.app/CodeSystem/consent-content-class",
+              "code": "location_contact-information_symptoms-testing-conditions"
+            }
+          ]
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Consent/1790",
+      "resource": {
+        "resourceType": "Consent",
+        "id": "1790",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-27T16:38:42.118+00:00",
+          "source": "#JXp2GlgBeqYUo8Pf"
+        },
+        "status": "active",
+        "scope": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+              "code": "patient-privacy"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "59284-0"
+              }
+            ]
+          }
+        ],
+        "patient": {
+          "reference": "Patient/1787"
+        },
+        "organization": [
+          {
+            "reference": "Organization/1465"
+          }
+        ],
+        "provision": {
+          "type": "permit",
+          "period": {
+            "start": "2020-04-27T09:38:42.009"
+          },
+          "class": [
+            {
+              "system": "https://stayhome.app/CodeSystem/consent-content-class",
+              "code": "location_contact-information_symptoms-testing-conditions"
+            }
+          ]
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Consent/1794",
+      "resource": {
+        "resourceType": "Consent",
+        "id": "1794",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-27T16:43:35.843+00:00",
+          "source": "#MtL03sN921AwjjoT"
+        },
+        "status": "active",
+        "scope": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+              "code": "patient-privacy"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "59284-0"
+              }
+            ]
+          }
+        ],
+        "patient": {
+          "reference": "Patient/1791"
+        },
+        "organization": [
+          {
+            "reference": "Organization/1465"
+          }
+        ],
+        "provision": {
+          "type": "permit",
+          "period": {
+            "start": "2020-04-27T09:43:35.751"
+          },
+          "class": [
+            {
+              "system": "https://stayhome.app/CodeSystem/consent-content-class",
+              "code": "location_contact-information_symptoms-testing-conditions"
+            }
+          ]
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Consent/1823",
+      "resource": {
+        "resourceType": "Consent",
+        "id": "1823",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-27T17:42:40.268+00:00",
+          "source": "#4vg4G133ixHQTYvJ"
+        },
+        "status": "active",
+        "scope": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+              "code": "patient-privacy"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "59284-0"
+              }
+            ]
+          }
+        ],
+        "patient": {
+          "reference": "Patient/1820"
+        },
+        "organization": [
+          {
+            "reference": "Organization/1465"
+          }
+        ],
+        "provision": {
+          "type": "permit",
+          "period": {
+            "start": "2020-04-27T10:42:40.175"
+          },
+          "class": [
+            {
+              "system": "https://stayhome.app/CodeSystem/consent-content-class",
+              "code": "location_contact-information_symptoms-testing-conditions"
+            }
+          ]
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Consent/1834",
+      "resource": {
+        "resourceType": "Consent",
+        "id": "1834",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-27T23:24:47.736+00:00",
+          "source": "#WqEM7E9mienALXnL"
+        },
+        "status": "active",
+        "scope": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+              "code": "patient-privacy"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "59284-0"
+              }
+            ]
+          }
+        ],
+        "patient": {
+          "reference": "Patient/1831"
+        },
+        "organization": [
+          {
+            "reference": "Organization/1465"
+          }
+        ],
+        "provision": {
+          "type": "permit",
+          "period": {
+            "start": "2020-04-27T16:24:47.656"
+          },
+          "class": [
+            {
+              "system": "https://stayhome.app/CodeSystem/consent-content-class",
+              "code": "location_contact-information_symptoms-testing-conditions"
+            }
+          ]
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Consent/1782",
+      "resource": {
+        "resourceType": "Consent",
+        "id": "1782",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-27T16:30:24.814+00:00",
+          "source": "#iY3hvcYwL4YQvBM5"
+        },
+        "status": "active",
+        "scope": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+              "code": "patient-privacy"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "59284-0"
+              }
+            ]
+          }
+        ],
+        "patient": {
+          "reference": "Patient/1206"
+        },
+        "organization": [
+          {
+            "reference": "Organization/1465"
+          }
+        ],
+        "provision": {
+          "type": "permit",
+          "period": {
+            "start": "2020-04-27T09:30:24.693"
+          },
+          "class": [
+            {
+              "system": "https://stayhome.app/CodeSystem/consent-content-class",
+              "code": "location_contact-information_symptoms-testing-conditions"
+            }
+          ]
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Consent/1798",
+      "resource": {
+        "resourceType": "Consent",
+        "id": "1798",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-27T16:56:13.503+00:00",
+          "source": "#ZJZhhyoKIcvpRhPH"
+        },
+        "status": "active",
+        "scope": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+              "code": "patient-privacy"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "59284-0"
+              }
+            ]
+          }
+        ],
+        "patient": {
+          "reference": "Patient/1795"
+        },
+        "organization": [
+          {
+            "reference": "Organization/1465"
+          }
+        ],
+        "provision": {
+          "type": "permit",
+          "period": {
+            "start": "2020-04-27T09:56:13.417"
+          },
+          "class": [
+            {
+              "system": "https://stayhome.app/CodeSystem/consent-content-class",
+              "code": "location_contact-information_symptoms-testing-conditions"
+            }
+          ]
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Consent/1775",
+      "resource": {
+        "resourceType": "Consent",
+        "id": "1775",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-25T22:04:15.295+00:00",
+          "source": "#q5KwyHDLaV4bc02f"
+        },
+        "status": "active",
+        "scope": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+              "code": "patient-privacy"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "59284-0"
+              }
+            ]
+          }
+        ],
+        "patient": {
+          "reference": "Patient/1202"
+        },
+        "organization": [
+          {
+            "reference": "Organization/1465"
+          }
+        ],
+        "provision": {
+          "type": "permit",
+          "period": {
+            "start": "2020-04-25T15:04:15.172"
+          },
+          "class": [
+            {
+              "system": "https://stayhome.app/CodeSystem/consent-content-class",
+              "code": "location_contact-information_symptoms-testing-conditions"
+            }
+          ]
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Consent/1786",
+      "resource": {
+        "resourceType": "Consent",
+        "id": "1786",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-27T16:34:05.741+00:00",
+          "source": "#k9HyxMbES0JGj33e"
+        },
+        "status": "active",
+        "scope": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+              "code": "patient-privacy"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "59284-0"
+              }
+            ]
+          }
+        ],
+        "patient": {
+          "reference": "Patient/1783"
+        },
+        "organization": [
+          {
+            "reference": "Organization/1465"
+          }
+        ],
+        "provision": {
+          "type": "permit",
+          "period": {
+            "start": "2020-04-27T09:34:05.632"
+          },
+          "class": [
+            {
+              "system": "https://stayhome.app/CodeSystem/consent-content-class",
+              "code": "location_contact-information_symptoms-testing-conditions"
+            }
+          ]
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Consent/1805",
+      "resource": {
+        "resourceType": "Consent",
+        "id": "1805",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-27T17:08:28.773+00:00",
+          "source": "#dDbhtT7qtdjQdO1M"
+        },
+        "status": "active",
+        "scope": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+              "code": "patient-privacy"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "59284-0"
+              }
+            ]
+          }
+        ],
+        "patient": {
+          "reference": "Patient/1802"
+        },
+        "organization": [
+          {
+            "reference": "Organization/1465"
+          }
+        ],
+        "provision": {
+          "type": "permit",
+          "period": {
+            "start": "2020-04-27T10:08:28.690"
+          },
+          "class": [
+            {
+              "system": "https://stayhome.app/CodeSystem/consent-content-class",
+              "code": "location_contact-information_symptoms-testing-conditions"
+            }
+          ]
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Consent/1815",
+      "resource": {
+        "resourceType": "Consent",
+        "id": "1815",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-27T17:29:09.599+00:00",
+          "source": "#1tA2EB6G5IYfmPok"
+        },
+        "status": "active",
+        "scope": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+              "code": "patient-privacy"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "59284-0"
+              }
+            ]
+          }
+        ],
+        "patient": {
+          "reference": "Patient/1812"
+        },
+        "organization": [
+          {
+            "reference": "Organization/1465"
+          }
+        ],
+        "provision": {
+          "type": "permit",
+          "period": {
+            "start": "2020-04-27T10:29:09.314"
+          },
+          "class": [
+            {
+              "system": "https://stayhome.app/CodeSystem/consent-content-class",
+              "code": "location_contact-information_symptoms-testing-conditions"
+            }
+          ]
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Consent/1824",
+      "resource": {
+        "resourceType": "Consent",
+        "id": "1824",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-27T22:36:57.768+00:00",
+          "source": "#naWiQWzRhxRaGaIl"
+        },
+        "status": "active",
+        "scope": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+              "code": "patient-privacy"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "59284-0"
+              }
+            ]
+          }
+        ],
+        "patient": {
+          "reference": "Patient/41"
+        },
+        "organization": [
+          {
+            "reference": "Organization/1465"
+          }
+        ],
+        "provision": {
+          "type": "permit",
+          "period": {
+            "start": "2020-04-27T15:36:57.682"
+          },
+          "class": [
+            {
+              "system": "https://stayhome.app/CodeSystem/consent-content-class",
+              "code": "location_contact-information_symptoms-testing-conditions"
+            }
+          ]
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Consent/1849",
+      "resource": {
+        "resourceType": "Consent",
+        "id": "1849",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-05-07T21:26:51.911+00:00",
+          "source": "#xMSuqzAMBBc898t1"
+        },
+        "status": "active",
+        "scope": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/consentscope",
+              "code": "patient-privacy"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "59284-0"
+              }
+            ]
+          }
+        ],
+        "patient": {
+          "reference": "Patient/1415"
+        },
+        "organization": [
+          {
+            "reference": "Organization/1465"
+          }
+        ],
+        "provision": {
+          "type": "permit",
+          "period": {
+            "start": "2020-05-07T14:26:51.572"
+          },
+          "class": [
+            {
+              "system": "https://stayhome.app/CodeSystem/consent-content-class",
+              "code": "location_contact-information_symptoms-testing-conditions"
+            }
+          ]
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/1795",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "1795",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-27T16:56:10.258+00:00",
+          "source": "#qZza4Tagjg60xsGS"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>11f5e31c-4876-427e-bcff-c71da964e3ee</td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "11f5e31c-4876-427e-bcff-c71da964e3ee"
+          }
+        ]
+      },
+      "search": {
+        "mode": "include"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/1221",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "1221",
+        "meta": {
+          "versionId": "10",
+          "lastUpdated": "2020-03-30T01:57:43.682+00:00",
+          "source": "#gliCtYb3stLDTAZw"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>18292dd8-1c5a-40dd-8cd6-2b5fb1a15837</td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "18292dd8-1c5a-40dd-8cd6-2b5fb1a15837"
+          }
+        ],
+        "name": [
+          {
+            "family": "Lober",
+            "given": [
+              "Bill"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "sms",
+            "value": "206 605 8493",
+            "rank": 1
+          },
+          {
+            "system": "email",
+            "value": "bill.lober+stayhome3@gmail.com",
+            "rank": 99
+          },
+          {
+            "system": "phone",
+            "value": "206 605 8493",
+            "rank": 99
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1970-03-26T00:00:00.000",
+        "address": [
+          {
+            "use": "home",
+            "postalCode": "98103"
+          },
+          {
+            "postalCode": "98105"
+          }
+        ]
+      },
+      "search": {
+        "mode": "include"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/1831",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "1831",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-27T23:20:59.521+00:00",
+          "source": "#GS6jLEaDWcpqG51B"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>90115158-0abb-4301-8742-9227241b0b2b</td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "90115158-0abb-4301-8742-9227241b0b2b"
+          }
+        ]
+      },
+      "search": {
+        "mode": "include"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/1415",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "1415",
+        "meta": {
+          "versionId": "3",
+          "lastUpdated": "2020-05-14T23:58:09.512+00:00",
+          "source": "#xlH9OMYubwpnkpPr"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>6c9d2b3f-a674-4866-9b0c-da0020d36ca7</td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "6c9d2b3f-a674-4866-9b0c-da0020d36ca7"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "rank": 99
+          },
+          {
+            "system": "email",
+            "value": "pbugni@gmail.com",
+            "rank": 99
+          }
+        ],
+        "address": [
+          {
+            "use": "home"
+          }
+        ],
+        "managingOrganization": {
+          "reference": "Organization/1465"
+        }
+      },
+      "search": {
+        "mode": "include"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/41",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "41",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-03-24T23:43:11.451+00:00",
+          "source": "#3EWJI1Gule7RJP5b"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>4b59c775-63f0-4ab2-8206-0aec41a614de</td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "4b59c775-63f0-4ab2-8206-0aec41a614de"
+          }
+        ]
+      },
+      "search": {
+        "mode": "include"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/1450",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "1450",
+        "meta": {
+          "versionId": "2",
+          "lastUpdated": "2020-04-12T21:36:54.886+00:00",
+          "source": "#Ut0sEXo6Y4zqVSlk"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>fa6e0ede-d7dd-4ed2-b0a0-ac1ccd58bf51</td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "fa6e0ede-d7dd-4ed2-b0a0-ac1ccd58bf51"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "rank": 99
+          },
+          {
+            "system": "email",
+            "value": "bill.lober+stayhome5@gmail.com",
+            "rank": 99
+          }
+        ],
+        "address": [
+          {
+            "use": "home"
+          }
+        ]
+      },
+      "search": {
+        "mode": "include"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/1802",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "1802",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-27T17:08:25.483+00:00",
+          "source": "#tRVLeXiyegPuk9ze"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>e85e4f18-6ae2-4e0f-bb7e-3bde258d6fd2</td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "e85e4f18-6ae2-4e0f-bb7e-3bde258d6fd2"
+          }
+        ]
+      },
+      "search": {
+        "mode": "include"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/1677",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "1677",
+        "meta": {
+          "versionId": "2",
+          "lastUpdated": "2020-04-17T22:15:12.411+00:00",
+          "source": "#7g7a9BgY3eJazELz"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>a1a45df6-5903-45f9-a80d-565c9eb82e51</td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "a1a45df6-5903-45f9-a80d-565c9eb82e51"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "rank": 99
+          },
+          {
+            "system": "email",
+            "value": "achen2401+potato10@gmail.com",
+            "rank": 99
+          }
+        ],
+        "address": [
+          {
+            "use": "home"
+          }
+        ]
+      },
+      "search": {
+        "mode": "include"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/1202",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "1202",
+        "meta": {
+          "versionId": "23",
+          "lastUpdated": "2020-05-19T02:17:40.777+00:00",
+          "source": "#4Lhcf28meQY28eup"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>47ff810a-36ad-4111-a069-fce2535a47de</td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "47ff810a-36ad-4111-a069-fce2535a47de"
+          }
+        ],
+        "name": [
+          {
+            "family": "Rainbowfloof",
+            "given": [
+              "Stargazer"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "sms",
+            "value": "6109734388",
+            "rank": 1
+          },
+          {
+            "system": "email",
+            "value": "test8@uw.edu",
+            "rank": 99
+          },
+          {
+            "system": "phone",
+            "value": "6109734388",
+            "rank": 99
+          }
+        ],
+        "gender": "other",
+        "birthDate": "1991-03-19T00:00:00.000",
+        "address": [
+          {
+            "use": "home",
+            "postalCode": "98109"
+          }
+        ],
+        "communication": [
+          {
+            "language": {
+              "coding": [
+                {
+                  "system": "urn:ietf:bcp:47",
+                  "code": "de"
+                }
+              ]
+            },
+            "preferred": true
+          }
+        ]
+      },
+      "search": {
+        "mode": "include"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/1812",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "1812",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-27T17:29:06.432+00:00",
+          "source": "#bUZ4yZmqQpUlUXV6"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>12a8d1b1-0901-4154-95fd-528afbc94271</td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "12a8d1b1-0901-4154-95fd-528afbc94271"
+          }
+        ]
+      },
+      "search": {
+        "mode": "include"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/1206",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "1206",
+        "meta": {
+          "versionId": "34",
+          "lastUpdated": "2020-05-19T15:46:48.002+00:00",
+          "source": "#SBm2PruM4uQ3WZxd"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\"><b>TEST </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>50570cc8-8d80-453a-ab91-7ea7516e98ce</td></tr><tr><td>Address</td><td/></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "50570cc8-8d80-453a-ab91-7ea7516e98ce"
+          }
+        ],
+        "name": [
+          {
+            "family": "Test",
+            "given": [
+              "Amy"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "sms",
+            "rank": 99
+          },
+          {
+            "system": "email",
+            "value": "achen2401+potato2@gmail.com",
+            "rank": 1
+          },
+          {
+            "system": "phone",
+            "value": "1234567890",
+            "rank": 99
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1971-04-14T00:00:00.000",
+        "address": [
+          {
+            "use": "home",
+            "postalCode": "02115"
+          },
+          {
+            "postalCode": "98115"
+          }
+        ],
+        "communication": [
+          {
+            "language": {
+              "coding": [
+                {
+                  "system": "urn:ietf:bcp:47",
+                  "code": "es"
+                }
+              ]
+            },
+            "preferred": true
+          }
+        ]
+      },
+      "search": {
+        "mode": "include"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/1783",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "1783",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-27T16:32:35.478+00:00",
+          "source": "#DsXBdqiGvcqwiS82"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>3f83ee4d-d19a-487b-8826-de9d44bb651b</td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "3f83ee4d-d19a-487b-8826-de9d44bb651b"
+          }
+        ]
+      },
+      "search": {
+        "mode": "include"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/1689",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "1689",
+        "meta": {
+          "versionId": "3",
+          "lastUpdated": "2020-04-17T23:43:51.025+00:00",
+          "source": "#HkxXISXrVtS5tD4R"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>b87271c4-ffea-4b56-b596-999aa51c281d</td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "b87271c4-ffea-4b56-b596-999aa51c281d"
+          }
+        ],
+        "name": [
+          {
+            "family": "test",
+            "given": [
+              "perm"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "sms",
+            "value": "112-345-6789",
+            "rank": 1
+          },
+          {
+            "system": "email",
+            "value": "perm@test",
+            "rank": 99
+          },
+          {
+            "system": "phone",
+            "value": "112-345-6789",
+            "rank": 99
+          }
+        ],
+        "gender": "other",
+        "birthDate": "2010-04-16T00:00:00.000",
+        "address": [
+          {
+            "use": "home",
+            "postalCode": "12345"
+          }
+        ]
+      },
+      "search": {
+        "mode": "include"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/1787",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "1787",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-27T16:37:10.070+00:00",
+          "source": "#pyyqzQiipjbXQlnz"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>9ece3090-b125-4a45-8130-1266107ee7dc</td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "9ece3090-b125-4a45-8130-1266107ee7dc"
+          }
+        ]
+      },
+      "search": {
+        "mode": "include"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/1820",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "1820",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-27T17:42:36.912+00:00",
+          "source": "#ZLMf2wNovYSYxkVL"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>b0f96c32-714a-4121-9216-06ce89a680aa</td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "b0f96c32-714a-4121-9216-06ce89a680aa"
+          }
+        ]
+      },
+      "search": {
+        "mode": "include"
+      }
+    },
+    {
+      "fullUrl": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient/1791",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "1791",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2020-04-27T16:42:10.897+00:00",
+          "source": "#GInxsS66UxPYtWmf"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>4b64b3c4-6864-4fac-afaa-0a1af1c6cfcf</td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "https://keycloak-dev.cirg.washington.edu/auth/realms/Stayhome",
+            "value": "4b64b3c4-6864-4fac-afaa-0a1af1c6cfcf"
+          }
+        ]
+      },
+      "search": {
+        "mode": "include"
+      }
+    }
+  ]
+}
