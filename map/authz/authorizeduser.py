@@ -5,7 +5,7 @@ from jose import jwt
 from jose.exceptions import ExpiredSignatureError, JWTClaimsError
 from werkzeug.exceptions import Unauthorized
 
-from map.fhir import Bundle
+from map.fhir import Bundle, HapiRequest
 
 
 def validate_jwt(bearer_token):
@@ -45,7 +45,7 @@ class AuthzCheckResource(object):
 
     def read(self):
         """Default case, FHIR objects all readable"""
-        return True
+        return self.resource
 
     def unauth_read(self):
         """Override for unauthenticated reads (i.e. no token)"""
@@ -66,21 +66,22 @@ class AuthzCheckCarePlan(AuthzCheckResource):
     def read(self):
         """Only owning patient may read"""
         if self.owned:
-            return True
+            return self.resource
 
     def unauth_read(self):
         """Only allow if no patient is set in CarePlan"""
         if self.resource.get('subject'):
             raise Unauthorized(
                 "Unauthorized can't view CarePlan with well defined 'subject'")
-        return True
+        return self.resource
 
     def write(self):
         """Initial writes allowed, and updates if same patient"""
         if not self.user.patient_id():
-            return True
+            return self.resource
         if not self.owned:
             raise Unauthorized("Write CarePlan failed; mismatched owner")
+        return self.resource
 
 
 class AuthzCheckConsent(AuthzCheckResource):
@@ -89,7 +90,7 @@ class AuthzCheckConsent(AuthzCheckResource):
 
     def write(self):
         """Allow consent writes"""
-        return True
+        return self.resource
 
 
 class AuthzCheckCommunication(AuthzCheckResource):
@@ -108,15 +109,14 @@ class AuthzCheckCommunication(AuthzCheckResource):
         for i in self.resource.get('category', []):
             for coding in i['coding']:
                 if coding == open_communication:
-                    return True
+                    return self.resource
 
         raise Unauthorized(
             "Unauthorized; 'category' allowing unauthorized access not found")
 
     def write(self):
-        """Initial writes allowed, and updates if same patient"""
-        # allow for time being
-        return True
+        """Writes allowed for now, to mark communications as read"""
+        return self.resource
 
 
 class AuthzCheckDocumentReference(AuthzCheckResource):
@@ -125,7 +125,7 @@ class AuthzCheckDocumentReference(AuthzCheckResource):
 
     def unauth_read(self):
         """DocumentReferences wide open for reads"""
-        return True
+        return self.resource
 
 
 class AuthzCheckPatient(AuthzCheckResource):
@@ -147,21 +147,40 @@ class AuthzCheckPatient(AuthzCheckResource):
             raise ValueError(
                 "unexpected multiple KC identifiers on Patient "
                 f"{self.resource['id']}")
-        return kc_sys_ids[0]['value'] == self.user.kc_identifier_value
+        result = kc_sys_ids[0]['value'] == self.user.kc_identifier_value
+        # Cache internals in self.user if this happens to be the owners
+        if result:
+            self.user.extract_internals()
+        return result
+
+    def same_user(self):
+        """Returns true if resource refers to same user as self"""
+        return self._kc_ident_in_resource()
 
     def read(self):
-        """Only owning patient may read"""
+        """User's role determines read access"""
+        # Admins get carte blanche
         if 'admin' in self.user.roles:
-            return True
-        if not self._kc_ident_in_resource():
+            return self.resource
+
+        # Org admin and staff can only view patients with consents
+        # on the same organization
+        if 'org-admin' or 'org-staff' in self.user.roles:
+            if (self.same_user() or self.user.consented_same_org(self.resource)):
+                return self.resource
+            raise Unauthorized()
+
+        # Having not hit a role case above, user may only view
+        # self owned resource
+        if not self.same_user():
             raise Unauthorized("authorized identifier not found")
-        return True
+        return self.resource
 
     def write(self):
         """Initial writes allowed, and updates if same patient"""
         if not self._kc_ident_in_resource():
             raise Unauthorized("authorized identifier not found")
-        return True
+        return self.resource
 
 
 class AuthzCheckQuestionnaireResponse(AuthzCheckResource):
@@ -173,12 +192,12 @@ class AuthzCheckQuestionnaireResponse(AuthzCheckResource):
     def read(self):
         """Only owning patient may read"""
         if self.owned:
-            return True
+            return self.resource
 
     def write(self):
         """Initial writes allowed, and updates if same patient"""
         if not self.user.patient_id():
-            return True
+            return self.resource
         if not self.owned:
             raise Unauthorized(
                 "Write QuestionnaireResponse failed; mismatched owner")
@@ -213,6 +232,8 @@ class UnauthorizedUser(object):
         :param fhir: JSON formatted FHIR contents for which an exception
           must exist in the matching check resource class to allow for
           unauthorized access, or Unauthorized will be raised
+
+        :returns unaltered fhir
         """
         if verb not in ('read', 'write'):
             raise ValueError(f'{verb} not in ("read", "write")')
@@ -228,6 +249,7 @@ class UnauthorizedUser(object):
         else:
             ar = authz_check_resource(authz_user=self, resource=fhir)
             ar.unauth_read()
+        return fhir
 
 
 class AuthorizedUser(object):
@@ -260,22 +282,90 @@ class AuthorizedUser(object):
         :param verb: 'read' or 'write'
         :param fhir: JSON formatted FHIR contents for which AuthorizedPatient
           must have authorization to <verb> or Unauthorized will be raised
+
+        :returns potentially modified (filtered) fhir
         """
         if verb not in ('read', 'write'):
             raise ValueError(f'{verb} not in ("read", "write")')
 
         if fhir['resourceType'] == 'Bundle':
             bundle = Bundle(fhir)
+            remove_ids = []
             for item in bundle.resources():
                 ar = authz_check_resource(authz_user=self, resource=item)
-                getattr(ar, verb)()
+                try:
+                    getattr(ar, verb)()
+                except Unauthorized:
+                    # For bundled/search results, filter out unauthorized
+                    remove_ids.append(item['id'])
+
+            if remove_ids:
+                bundle.remove_entries(remove_ids)
+            return bundle.bundle
         else:
             ar = authz_check_resource(authz_user=self, resource=fhir)
-            getattr(ar, verb)()
+            return getattr(ar, verb)()
+
+    def consented_same_org(self, resource):
+        """Returns True if resource consented to common org"""
+        return resource['id'] in self.consented_users(org_id=self.org_id())
+
+    def consented_users(self, org_id):
+        """Lookup all users with consent on given org"""
+        if not org_id:
+            return set()
+
+        # shouldn't need to round trip twice
+        if hasattr(self, '_consented_users'):
+            return self._consented_users
+
+        self._consented_users = set()
+        result, status = HapiRequest.find_bundle('Consent', search_dict={
+            'organization': '/'.join(("Organization", str(org_id))),
+            '_include': "Consent.patient", '_count': 1000})
+        bundle = Bundle(result)
+        for i in bundle.resources():
+            if i['resourceType'] == 'Consent' and i[
+                    'provision']['type'] == 'permit':
+                self._consented_users.add(
+                    i['patient']['reference'].split('/')[1])
+        # current_app.logger.debug("consented users: %s" % self._consented_users)
+        return self._consented_users
+
+    def extract_internals(self, resource=None):
+        """Round trip or extract identifiers for self"""
+        # Skip out if already done.
+        if hasattr(self, "_patient_id") and self._patient_id is not None:
+            return
+
+        if not resource:
+            resource, status = HapiRequest.find_one('Patient', search_dict={
+                'identifier': '|'.join((
+                    self.kc_identifier_system, self.kc_identifier_value))})
+
+        if resource['resourceType'] != 'Patient':
+            raise ValueError(
+                "Unexpected resourceType {resource['resourceType]}")
+
+        self._patient_id = resource['id']
+        self._org_id = resource.get('managingOrganization', {}).get(
+            'reference', 'Organization/').split('/')[1]
+
+    def org_id(self):
+        """Return managingOrganization identifier, if available"""
+        if not hasattr(self, '_org_id'):
+            # Must round trip now to get user's org_id
+            self.extract_internals()
+
+        return self._org_id
 
     def patient_id(self):
         """Return patient identifier, if available
 
         Prior to initial POST, the identifier isn't available.
         """
-        return None
+        if not hasattr(self, '_patient_id'):
+            # Must round trip now to get user's patient_id
+            self.extract_internals()
+
+        return self._patient_id
