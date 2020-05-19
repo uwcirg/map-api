@@ -22,7 +22,7 @@ class FhirSearch(Resource):
             authz = UnauthorizedUser()
 
         bundle, status = HapiRequest.find_bundle(resource_type, request.args)
-        authz.check('read', bundle)
+        bundle = authz.check('read', bundle)
         return make_response(bundle, status)
 
     def post(self, resource_type):
@@ -38,8 +38,8 @@ class FhirSearch(Resource):
             raise BadRequest(
                 "required FHIR resource not found;"
                 " 'Content-Type' header ill defined.")
-        au.check('write', request.json)
-        return make_response(HapiRequest.post_resource(request.json))
+        resource = au.check('write', request.json)
+        return make_response(HapiRequest.post_resource(resource))
 
 
 class FhirResource(Resource):
@@ -60,7 +60,7 @@ class FhirResource(Resource):
             authz = UnauthorizedUser()
 
         resource, status = HapiRequest.find_by_id(resource_type, resource_id)
-        authz.check('read', resource)
+        resource = authz.check('read', resource)
         return make_response(resource, status)
 
     def put(self, resource_type, resource_id):
@@ -80,5 +80,5 @@ class FhirResource(Resource):
 
         au = AuthorizedUser.from_auth_header(
             request.headers.get('Authorization'))
-        au.check('write', request.json)
-        return make_response(HapiRequest.put_resource(request.json))
+        resource = au.check('write', request.json)
+        return make_response(HapiRequest.put_resource(resource))
