@@ -31,5 +31,6 @@
     {
       "use": "home"
     }
-  ]
+  ],
+  "managingOrganization": {"reference": "Organization/1465"}
 }
