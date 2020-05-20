@@ -166,7 +166,8 @@ class AuthzCheckPatient(AuthzCheckResource):
         # Org admin and staff can only view patients with consents
         # on the same organization
         if 'org_admin' or 'org_staff' in self.user.roles:
-            if (self.same_user() or self.user.consented_same_org(self.resource)):
+            if (self.same_user() or
+                    self.user.consented_same_org(self.resource)):
                 return self.resource
             raise Unauthorized()
 
@@ -322,11 +323,12 @@ class AuthorizedUser(object):
         self._consented_users = set()
         result, status = HapiRequest.find_bundle('Consent', search_dict={
             'organization': '/'.join(("Organization", str(org_id))),
-            '_include': "Consent.patient", '_count': 1000})
+            '_include': "Consent.patient",
+            '_count': 1000})
         bundle = Bundle(result)
         for i in bundle.resources():
-            if i['resourceType'] == 'Consent' and i[
-                    'provision']['type'] == 'permit':
+            if (i['resourceType'] == 'Consent' and
+                    i['provision']['type'] == 'permit'):
                 self._consented_users.add(
                     i['patient']['reference'].split('/')[1])
         # current_app.logger.debug("consented users: %s" % self._consented_users)

@@ -25,7 +25,7 @@ class Bundle(object):
         :param ids: iterable of id values to remove from bundle
         :raises ValueError: if matching entries not found
         """
-        count_b4 = self.__len__()
+        count_b4 = len(self)
         keepers = []
         found_count = 0
         for i in self.bundle['entry']:
