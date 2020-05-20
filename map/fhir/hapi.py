@@ -66,6 +66,14 @@ class HapiRequest(metaclass=HapiMeta):
         return hapi_res.json(), hapi_res.status_code
 
     @classmethod
+    def delete_by_id(cls, resource_type, resource_id):
+        """Delete a single resource"""
+        hapi_res = requests.delete(HapiRequest.build_request(
+            f"{resource_type}/{resource_id}"), headers=ACCEPT_JSON)
+        hapi_res.raise_for_status()
+        return hapi_res.json(), hapi_res.status_code
+
+    @classmethod
     def post_resource(cls, resource):
         url = cls.build_request(f'{resource["resourceType"]}')
         result = requests.post(url, json=resource, headers=ACCEPT_JSON)
