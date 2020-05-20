@@ -35,7 +35,7 @@ def upgrade():
     # working with our known Organizations, get the respective list of consents
     # for each
     consent_ids_to_delete = []
-    for org_id in (1463, 1466, 1467, 1467, 1737):
+    for org_id in (1463, 1464, 1465, 1466, 1467, 1737):
         # query for patients with at least one consent on file
         consented_patients, status = HapiRequest.find_bundle("Consent", search_dict={
             'organization': '/'.join(("Organization", str(org_id))),
