@@ -163,7 +163,7 @@ class AuthzCheckPatient(AuthzCheckResource):
 
         # Org admin and staff can only view patients with consents
         # on the same organization
-        if 'org_admin' or 'org_staff' in self.user.roles:
+        if 'org_admin' in self.user.roles or 'org_staff' in self.user.roles:
             if (self.same_user() or
                     self.user.consented_same_org(self.resource)):
                 return self.resource
