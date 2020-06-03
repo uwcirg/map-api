@@ -34,7 +34,7 @@ def admin_jwt():
 
 @fixture
 def patient_jwt():
-    return generate_jwt()
+    return generate_jwt(sub="6c9d2b3f-a674-4866-9b0c-da0020d36ca7")
 
 
 @fixture
@@ -100,10 +100,14 @@ def test_patient_via_admin(
     assert results.status_code == 200
 
 
-def test_patient_self(client, mocker, prefix, patient_1415):
-    patient_jwt = generate_jwt(sub="6c9d2b3f-a674-4866-9b0c-da0020d36ca7")
-    mock_hapi = mocker.patch('map.fhir.HapiRequest.find_by_id')
-    mock_hapi.return_value = patient_1415, 200
+def test_patient_self(client, mocker, prefix, patient_1415, patient_jwt):
+    # mock result of looking up patient
+    mock_patient_lookup = mocker.patch('map.fhir.HapiRequest.find_by_id')
+    mock_patient_lookup.return_value = patient_1415, 200
+
+    # during lookup, a call is made to verify identity, mock result
+    mock_patient = mocker.patch('map.fhir.HapiRequest.find_one')
+    mock_patient.return_value = patient_1415, 200
 
     results = client.get('/'.join((prefix, 'Patient/1415')), headers={
         'Authorization': 'Bearer {}'.format(patient_jwt)})
