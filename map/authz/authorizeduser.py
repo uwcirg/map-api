@@ -77,8 +77,6 @@ class AuthzCheckCarePlan(AuthzCheckResource):
 
     def write(self):
         """Initial writes allowed, and updates if same patient"""
-        if not self.user.patient_id():
-            return self.resource
         if not self.owned:
             raise Unauthorized("Write CarePlan failed; mismatched owner")
         return self.resource
@@ -165,7 +163,7 @@ class AuthzCheckPatient(AuthzCheckResource):
 
         # Org admin and staff can only view patients with consents
         # on the same organization
-        if 'org_admin' or 'org_staff' in self.user.roles:
+        if 'org_admin' in self.user.roles or 'org_staff' in self.user.roles:
             if (self.same_user() or
                     self.user.consented_same_org(self.resource)):
                 return self.resource
@@ -202,6 +200,7 @@ class AuthzCheckQuestionnaireResponse(AuthzCheckResource):
         if not self.owned:
             raise Unauthorized(
                 "Write QuestionnaireResponse failed; mismatched owner")
+        return self.resource
 
 
 def authz_check_resource(authz_user, resource):

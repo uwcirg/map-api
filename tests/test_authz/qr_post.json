@@ -1,0 +1,88 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "questionnaire": "Questionnaire/1057",
+  "basedOn": [
+    {
+      "reference": "CarePlan/1189"
+    }
+  ],
+  "subject": {
+    "reference": "Patient/1415"
+  },
+  "authored": "2020-06-03T11:14:00.000",
+  "item": [
+    {
+      "linkId": "/exposure_confidence",
+      "answer": [
+        {
+          "valueCoding": {
+            "system": "Custom",
+            "code": "possible",
+            "display": "Possible",
+            "_display": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/elementdefinition-translatable",
+                  "valueBoolean": true
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/translation",
+                  "extension": [
+                    {
+                      "url": "lang",
+                      "valueCode": "mn"
+                    },
+                    {
+                      "url": "content",
+                      "valueString": "⠿⠿Possible~~"
+                    }
+                  ]
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/translation",
+                  "extension": [
+                    {
+                      "url": "lang",
+                      "valueCode": "de"
+                    },
+                    {
+                      "url": "content",
+                      "valueString": "Möglich"
+                    }
+                  ]
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/translation",
+                  "extension": [
+                    {
+                      "url": "lang",
+                      "valueCode": "es"
+                    },
+                    {
+                      "url": "content",
+                      "valueString": "Posible"
+                    }
+                  ]
+                },
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/translation",
+                  "extension": [
+                    {
+                      "url": "lang",
+                      "valueCode": "fr"
+                    },
+                    {
+                      "url": "content",
+                      "valueString": "Posib"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "status": "completed"
+}

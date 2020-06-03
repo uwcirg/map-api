@@ -33,6 +33,11 @@ def admin_jwt():
 
 
 @fixture
+def patient_jwt():
+    return generate_jwt(sub="6c9d2b3f-a674-4866-9b0c-da0020d36ca7")
+
+
+@fixture
 def org_staff_jwt():
     return generate_jwt(
         sub="6c9d2b3f-a674-4866-9b0c-da0020d36ca7", roles=('org_staff',))
@@ -68,6 +73,13 @@ def patient_1415(request):
     return data
 
 
+@fixture
+def qr_post_data(request):
+    data_dir, _ = os.path.splitext(request.module.__file__)
+    with open(os.path.join(data_dir, "qr_post.json"), 'r') as json_file:
+        data = json.load(json_file)
+    return data
+
 def test_patient_noauth(client, mocker, prefix, patient_bundle):
     """without auth header, should see 401"""
     mock_hapi = mocker.patch('map.fhir.HapiRequest.find_bundle')
@@ -88,10 +100,14 @@ def test_patient_via_admin(
     assert results.status_code == 200
 
 
-def test_patient_self(client, mocker, prefix, patient_1415):
-    patient_jwt = generate_jwt(sub="6c9d2b3f-a674-4866-9b0c-da0020d36ca7")
-    mock_hapi = mocker.patch('map.fhir.HapiRequest.find_by_id')
-    mock_hapi.return_value = patient_1415, 200
+def test_patient_self(client, mocker, prefix, patient_1415, patient_jwt):
+    # mock result of looking up patient
+    mock_patient_lookup = mocker.patch('map.fhir.HapiRequest.find_by_id')
+    mock_patient_lookup.return_value = patient_1415, 200
+
+    # during lookup, a call is made to verify identity, mock result
+    mock_patient = mocker.patch('map.fhir.HapiRequest.find_one')
+    mock_patient.return_value = patient_1415, 200
 
     results = client.get('/'.join((prefix, 'Patient/1415')), headers={
         'Authorization': 'Bearer {}'.format(patient_jwt)})
@@ -149,3 +165,21 @@ def test_consented_patients_query(
         'Authorization': 'Bearer {}'.format(org_staff_jwt)})
     assert len(results.json['entry']) == 1
     assert results.json['entry'][0]['resource']['id'] == "41"
+
+
+def test_qr_post(
+        client, mocker, patient_1415, patient_jwt, prefix, qr_post_data):
+
+    # mock results when looking up acting user's internal ids
+    mock_patient = mocker.patch('map.fhir.HapiRequest.find_one')
+    mock_patient.return_value = patient_1415, 200
+
+    # mock results when posting
+    mock_patient = mocker.patch('map.fhir.HapiRequest.post_resource')
+    mock_patient.return_value = {}, 200
+
+    results = client.post(
+        '/'.join((prefix, 'QuestionnaireResponse')),
+        headers={'Authorization': 'Bearer {}'.format(patient_jwt)},
+        json=qr_post_data)
+    assert results.status_code == 200
