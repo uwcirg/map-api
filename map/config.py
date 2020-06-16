@@ -14,6 +14,7 @@ CODE_SYSTEM = {
         'code': "system-announcement"
     }
 }
+SAME_ORG_CHECK = os.getenv("SAME_ORG_CHECK", True)
 
 ENV = os.getenv("FLASK_ENV")
 HAPI_URL = os.getenv("HAPI_URL")

@@ -6,6 +6,8 @@ from pytest import fixture
 
 from .conftest import SECRET
 from map.authz.authorizeduser import AuthorizedUser
+from map.authz.authorizedresource import authz_check_resource
+from map.fhir import Bundle
 
 
 def generate_claims(email, sub, roles):
@@ -80,6 +82,7 @@ def qr_post_data(request):
         data = json.load(json_file)
     return data
 
+
 def test_patient_noauth(client, mocker, prefix, patient_bundle):
     """without auth header, should see 401"""
     mock_hapi = mocker.patch('map.fhir.HapiRequest.find_bundle')
@@ -141,6 +144,20 @@ def test_consented_patients(mocker, consented_patient_bundle):
     results = test_user.consented_users(org_id=1465)
     assert len(results) == 16
     assert "1791" in results
+
+
+def test_consented_patients_wo_config(app, mocker, consented_patient_bundle):
+    """with SAME_ORG_CHECK=False all patients should pass authorization check"""
+    app.config['SAME_ORG_CHECK'] = False
+
+    mock_payload = generate_claims(
+        email='f@f', sub="6c9d2b3f-a674-4866-9b0c-da0020d36ca7",
+        roles=['org_staff'])
+    test_user = AuthorizedUser(mock_payload)
+
+    for item in Bundle(consented_patient_bundle).resources():
+        checker = authz_check_resource(test_user, item)
+        assert checker.read()
 
 
 def test_consented_patients_query(
