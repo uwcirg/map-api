@@ -1,0 +1,15 @@
+{
+  "resourceType": "Bundle",
+  "id": "849ccbee-8f6f-4a13-b05c-d22b8296c7b2",
+  "meta": {
+    "lastUpdated": "2020-09-09T18:49:29.931+00:00"
+  },
+  "type": "searchset",
+  "total": 0,
+  "link": [
+    {
+      "relation": "self",
+      "url": "http://localhost:8080/hapi-fhir-jpaserver/fhir/Patient?identifier=https%3A%2F%2Fkeycloak-dev.cirg.washington.edu%2Fauth%2Frealms%2FStayhome%7C560b91b9-46bf-4328-88c1-1ab8d0dc2f6d"
+    }
+  ]
+}
