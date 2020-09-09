@@ -58,6 +58,14 @@ def consented_patient_bundle(request):
 
 
 @fixture
+def no_patient(request):
+    data_dir, _ = os.path.splitext(request.module.__file__)
+    with open(os.path.join(data_dir, "no_patient.json"), 'r') as json_file:
+        data = json.load(json_file)
+    return data
+
+
+@fixture
 def patient_bundle(request):
     data_dir, _ = os.path.splitext(request.module.__file__)
     with open(os.path.join(data_dir, "patient.json"), 'r') as json_file:
@@ -124,6 +132,18 @@ def test_extract_internals(mocker, patient_1415):
     test_user.extract_internals(patient_1415)
     assert test_user._patient_id == "1415"
     assert test_user._org_id == "1465"
+
+
+def test_extract_wo_match(client, mocker, no_patient):
+    mock_hapi = mocker.patch('map.fhir.HapiRequest.find_bundle')
+    mock_hapi.return_value = no_patient, 200
+
+    mock_payload = generate_claims(
+        email='f@f', sub="6c9d2b3f-a674-4866-9b0c-da0020d36ca7", roles=[])
+    test_user = AuthorizedUser(mock_payload)
+    test_user.extract_internals()
+    assert test_user._patient_id is None
+    assert test_user._org_id is None
 
 
 def test_consented_patients(mocker, consented_patient_bundle):

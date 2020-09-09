@@ -344,6 +344,11 @@ class AuthorizedUser(object):
                 'identifier': '|'.join((
                     self.kc_identifier_system, self.kc_identifier_value))})
 
+        if status == 400:
+            # Patient not found, leave
+            self._patient_id, self._org_id = None, None
+            return
+
         if resource['resourceType'] != 'Patient':
             raise ValueError(
                 "Unexpected resourceType {resource['resourceType]}")
