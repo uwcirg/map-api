@@ -40,7 +40,7 @@ packaging==19.1           # via -r requirements.txt, pytest
 passlib==1.7.2            # via -r requirements.txt
 pluggy==0.12.0            # via -r requirements.txt, pytest
 ply==3.11                 # via -r requirements.txt
-py==1.8.0                 # via -r requirements.txt, pytest
+py==1.10.0                 # via -r requirements.txt, pytest
 pyasn1==0.4.8             # via -r requirements.txt, python-jose, rsa
 pycparser==2.20           # via -r requirements.txt, cffi
 pyjwt==1.7.1              # via -r requirements.txt, flask-jwt-extended
