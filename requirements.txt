@@ -60,7 +60,7 @@ six==1.14.0               # via cryptography, ecdsa, faker, flask-cors, flask-jw
 sqlalchemy==1.3.7         # via -r requirements.txt, alembic, flask-sqlalchemy
 text-unidecode==1.2       # via -r requirements.txt, faker
 toml==0.10.0              # via -r requirements.txt
-urllib3==1.25.3           # via -r requirements.txt, requests
+urllib3==1.25.8           # via -r requirements.txt, requests
 virtualenv==16.7.2        # via -r requirements.txt
 wcwidth==0.1.7            # via -r requirements.txt, pytest
 werkzeug==0.15.5          # via -r requirements.txt, flask, flask-jwt-extended, pytest-flask
