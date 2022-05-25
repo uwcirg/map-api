@@ -43,7 +43,7 @@ ply==3.11                 # via -r requirements.txt
 py==1.8.0                 # via -r requirements.txt, pytest
 pyasn1==0.4.8             # via -r requirements.txt, python-jose, rsa
 pycparser==2.20           # via -r requirements.txt, cffi
-pyjwt==1.7.1              # via -r requirements.txt, flask-jwt-extended
+pyjwt==2.4.0              # via -r requirements.txt, flask-jwt-extended
 pyparsing==2.4.2          # via -r requirements.txt, packaging
 pytest-factoryboy==2.0.3  # via -r requirements.txt
 pytest-flask==0.15.0      # via -r requirements.txt
